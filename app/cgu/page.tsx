@@ -57,9 +57,10 @@ export default function Cgu() {
 
         <Section n={4} icon="📸" title="Vos contenus">
           <p>
-            Vous restez responsable de ce que vous publiez (Stories, photos/vidéos, messages,
-            commentaires) et garantissez en détenir les droits. Vous nous accordez une licence limitée
-            et non exclusive, aux seules fins de faire fonctionner le Service.
+            Vous restez responsable de ce que vous publiez (messages, commentaires, activités) et
+            garantissez en détenir les droits. Vous nous accordez une licence limitée et non exclusive,
+            aux seules fins de faire fonctionner le Service. Les Stories sont générées sur votre
+            appareil et partagées par vos soins : nous ne les hébergeons pas.
           </p>
         </Section>
 

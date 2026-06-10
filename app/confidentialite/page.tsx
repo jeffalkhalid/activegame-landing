@@ -39,19 +39,22 @@ export default function Confidentialite() {
             <span className="tag">Pseudo / nom</span>
             <span className="tag">Niveau &amp; ELO</span>
             <span className="tag">Historique de matchs</span>
-            <span className="tag">Photos / vidéos (Stories)</span>
             <span className="tag">Messages &amp; réactions</span>
             <span className="tag">Activités communautaires</span>
             <span className="tag">Jeton de notification</span>
             <span className="tag">Données techniques</span>
           </div>
+          <p style={{ marginTop: 16 }}>
+            Les <strong>Stories</strong> sont générées sur votre appareil et partagées par vos soins :
+            nous ne collectons ni ne stockons aucune photo ou vidéo sur nos serveurs.
+          </p>
         </Section>
 
         <Section n={3} icon="🎯" title="Pourquoi nous l’utilisons">
           <ul>
             <li>Créer et gérer votre compte et votre profil.</li>
             <li>Organiser les parties, le matchmaking, le classement ELO et les défis.</li>
-            <li>Faire vivre la messagerie, les Stories et la communauté.</li>
+            <li>Faire vivre la messagerie et la communauté.</li>
             <li>Vous envoyer les notifications liées à vos parties.</li>
             <li>Sécuriser le service et prévenir la fraude et les abus.</li>
             <li>Respecter nos obligations légales.</li>
@@ -70,7 +73,7 @@ export default function Confidentialite() {
         <Section n={5} icon="🤝" title="Avec qui nous les partageons">
           <p>Nous ne vendons pas vos données. Pour faire tourner le service, nous faisons appel à des prestataires de confiance :</p>
           <div className="subs">
-            <Sub logo="S"  color="#3ecf8e" name="Supabase" role="Base de données, comptes & médias" />
+            <Sub logo="S"  color="#3ecf8e" name="Supabase" role="Base de données & comptes" />
             <Sub logo="E"  color="#ffffff" name="Expo" role="Relais des notifications push" />
             <Sub logo="🤖" color="#ff7a00" name="Google FCM" role="Notifications Android" />
             <Sub logo="" color="#a1a1aa" name="Apple APNs" role="Notifications iOS" />
