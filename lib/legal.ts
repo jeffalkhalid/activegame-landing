@@ -13,4 +13,8 @@ export const LEGAL = {
   // URLs des stores (à remplir une fois les apps publiées).
   appStoreUrl: '',
   playStoreUrl: '',
+  // Test fermé : APK Android téléchargé directement (déposer le fichier dans
+  // public/ puis le servir à cette URL). Cible du bouton « Télécharger » de la
+  // page passerelle /open quand l'app n'est pas installée.
+  apkUrl: '/pagmatch.apk',
 } as const;
