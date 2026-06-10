@@ -13,8 +13,9 @@ export const LEGAL = {
   // URLs des stores (à remplir une fois les apps publiées).
   appStoreUrl: '',
   playStoreUrl: '',
-  // Test fermé : APK Android servi depuis Supabase Storage (bucket public
-  // « downloads ») — trop gros pour GitHub (>100 Mo). Cible du bouton
+  // Test fermé : APK Android servi via une GitHub Release (tag stable « apk »,
+  // limite 2 Go vs 50 Mo sur Supabase free ; URL constante d'une version à
+  // l'autre — réuploader l'asset sur la même release). Cible du bouton
   // « Télécharger » de la page passerelle /open quand l'app n'est pas installée.
-  apkUrl: 'https://icshhobxeppttgayxmba.supabase.co/storage/v1/object/public/downloads/pagmatch.apk',
+  apkUrl: 'https://github.com/jeffalkhalid/activegame-landing/releases/download/apk/pagmatch.apk',
 } as const;
