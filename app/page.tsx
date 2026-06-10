@@ -88,10 +88,10 @@ function Hero() {
         <div className="hero-copy">
           <div className="pill"><span className="dot" /><span>La nouvelle ère du Padel</span></div>
           <h1 className="display">Le Padel.<br /><span className="y">Niveau Supérieur.</span></h1>
-          <p className="lede">Trouvez des partenaires à votre niveau, enregistrez vos matchs et grimpez au classement de votre club.</p>
+          <p className="lede">Trouvez des partenaires à votre niveau, enregistrez vos matchs et grimpez au classement de  la communauté PadelActiveGame.</p>
           <div className="hero-cta">
             <StoreBadges />
-            <div className="hero-note"><span style={{ color: 'var(--brand)' }}>★★★★★</span> Rejoignez la communauté padel de votre club</div>
+            <div className="hero-note"><span style={{ color: 'var(--brand)' }}>★★★★★</span> Rejoignez la communauté PadelActiveGame</div>
           </div>
         </div>
         <div className="hero-visual">
@@ -118,11 +118,11 @@ function Features() {
   // 6 cartes identiques → grille 3×2 uniforme (aucune carte large).
   const items = [
     { ic: Ic.target, t: 'Partenaires à votre niveau', d: 'Un score de compatibilité analyse niveau, disponibilités et distance pour vous proposer les bons joueurs — pas les frustrants.' },
-    { ic: Ic.chart, t: 'Classement du club', d: 'Chaque match compte et fait évoluer votre position dans le classement de votre club.' },
+    { ic: Ic.chart, t: 'Classement du club', d: 'Chaque match compte et fait évoluer votre position dans le classement.' },
     { ic: Ic.bolt, t: 'Matchmaking instantané', d: 'Filtrez par niveau, créneau et distance. Trouvez votre 4ᵉ joueur en quelques secondes.' },
-    { ic: Ic.trophy, t: 'Suivez votre progression', d: 'Visualisez votre évolution match après match et votre statut au sein du club.' },
+    { ic: Ic.trophy, t: 'Suivez votre progression', d: 'Visualisez votre évolution match après match et votre statut au sein de la communauté PAG.' },
     { ic: Ic.chat, t: 'Chat & organisation', d: 'Discutez avec votre partie, confirmez le créneau et la piste, gérez tout sans quitter l’app.' },
-    { ic: Ic.users, t: 'Communauté de club', d: 'Amis, alertes de parties ouvertes et événements : votre club, vivant, dans votre poche.' },
+    { ic: Ic.users, t: 'Communauté de club', d: 'Amis, alertes de parties ouvertes et événements : la communauté, vivante, dans votre poche.' },
   ];
   return (
     <section className="features" id="features">
@@ -130,7 +130,7 @@ function Features() {
         <div className="section-head reveal">
           <div className="eyebrow">Ce que vous obtenez</div>
           <h2 className="welcome">Tout pour <span className="y">mieux jouer</span></h2>
-          <p>PAG MATCH connecte les joueurs d’un même club, fait correspondre les niveaux et tient le score à votre place.</p>
+          <p>PAG MATCH connecte les joueurs de la communauté PadelActiveGame, fait correspondre les niveaux et tient le score à votre place.</p>
         </div>
         <div className="feat-grid">
           {items.map((it, i) => (
@@ -215,7 +215,10 @@ function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           <div className="footer-brand">
-            <img className="badge" src="/assets/pagmatch-logo.png" alt="PAG MATCH" />
+            <a className="footer-logo" href="#top">
+              <img className="racket" src="/assets/auth/splash-racket.png" alt="" />
+              <img className="wm" src="/assets/auth/splash-wordmark.png" alt="PAG MATCH" />
+            </a>
             <p>L’app de matchmaking et de classement padel de votre club. By {LEGAL.brand.toUpperCase()}.</p>
           </div>
           <div className="foot-col">

@@ -331,7 +331,9 @@ section { position: relative; }
 .footer { padding: 64px 0 40px; border-top: 1px solid var(--line); background: #08080A; }
 .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 30px; margin-bottom: 48px; }
 @media (max-width: 800px){ .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 20px; } }
-.footer-brand img.badge { width: 44px; height: 44px; margin-bottom: 16px; }
+.footer-logo { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px; }
+.footer-logo img.racket { width: 38px; height: 38px; object-fit: contain; }
+.footer-logo img.wm { height: 22px; width: auto; margin-left: -2px; }
 .footer-brand p { font-size: 13.5px; line-height: 1.6; color: var(--text-mute); max-width: 280px; font-weight: 500; }
 .foot-col h4 { font-family: var(--f-mono-ui); font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 16px; }
 .foot-col a { display: block; font-size: 14px; color: var(--text-dim); margin-bottom: 11px; font-weight: 500; transition: color .15s; }

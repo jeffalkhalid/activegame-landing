@@ -39,10 +39,10 @@ export function HomeScreen() {
           <div className="orb1" /><div className="orb2" />
           <div className="bell">{bell}<span className="bdot">3</span></div>
           <div className="pb-id">
-            <div className="pb-av" style={{ background: '#FFC11A', color: '#0A0A0A' }}>L</div>
+            <div className="pb-av" style={{ background: '#FFC11A', color: '#0A0A0A' }}>Y</div>
             <div className="pb-info">
               <div className="pb-league"><i style={{ background: '#FBBF24' }} /><span style={{ color: '#FBBF24' }}>Ligue Or</span></div>
-              <div className="pb-name">Lucas Martin</div>
+              <div className="pb-name">Youssef</div>
               <div className="pb-lvl">Niveau 4.20</div>
             </div>
           </div>
@@ -64,9 +64,9 @@ export function HomeScreen() {
         <div className="cc">
           <div className="ccorb" />
           <div className="cc-faces">
-            <i style={{ background: '#FFC11A', color: '#0A0A0A' }}>T</i>
-            <i style={{ background: '#27272A', color: '#fff' }}>S</i>
-            <i style={{ background: '#FFC11A', color: '#0A0A0A' }}>N</i>
+            <i style={{ background: '#FFC11A', color: '#0A0A0A' }}>S</i>
+            <i style={{ background: '#27272A', color: '#fff' }}>M</i>
+            <i style={{ background: '#FFC11A', color: '#0A0A0A' }}>R</i>
           </div>
           <div className="cc-txt"><div className="k">Communauté</div><div className="h">Tes amis sur PagMatch</div></div>
           <div className="cc-chev">{chev}</div>
@@ -93,9 +93,9 @@ type Sugg = { n: string; av: string; avc: string; txt: string; lvl: string; scor
 
 export function MatchScreen() {
   const sugg: Sugg[] = [
-    { n: 'Théo Dubois', av: 'T', avc: '#0A0A0A', txt: '#fff', lvl: '4.2', score: 88, tier: '#047857', tlabel: 'Match parfait', league: 'Or', lc: '#FBBF24', win: '64% W', comp: true },
-    { n: 'Sarah Renaud', av: 'S', avc: '#FFC11A', txt: '#0A0A0A', lvl: '4.0', score: 72, tier: '#E8A906', tlabel: 'Très compatible', league: 'Or', lc: '#FBBF24', win: '58% W' },
-    { n: 'Karim Bensaïd', av: 'K', avc: '#0A0A0A', txt: '#fff', lvl: '4.3', score: 64, tier: '#E8A906', tlabel: 'Très compatible', league: 'Or', lc: '#FBBF24', win: '71% W' },
+    { n: 'Mehdi', av: 'M', avc: '#0A0A0A', txt: '#fff', lvl: '4.2', score: 88, tier: '#047857', tlabel: 'Match parfait', league: 'Or', lc: '#FBBF24', win: '64% W', comp: true },
+    { n: 'Salma', av: 'S', avc: '#FFC11A', txt: '#0A0A0A', lvl: '4.0', score: 72, tier: '#E8A906', tlabel: 'Très compatible', league: 'Or', lc: '#FBBF24', win: '58% W' },
+    { n: 'Karim', av: 'K', avc: '#0A0A0A', txt: '#fff', lvl: '4.3', score: 64, tier: '#E8A906', tlabel: 'Très compatible', league: 'Or', lc: '#FBBF24', win: '71% W' },
   ];
   return (
     <div className="appscreen mm">
@@ -156,13 +156,13 @@ export function RankScreen() {
   const search = <svg viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="#a1a1aa" strokeWidth="1.5" /><line x1="9.5" y1="9.5" x2="12" y2="12" stroke="#a1a1aa" strokeWidth="1.5" strokeLinecap="round" /></svg>;
   // podium DOM order: [#2, #1, #3]
   const podium: Pod[] = [
-    { rank: 2, n: 'Julia', av: 'JM', lvl: '4.90', lc: '#FBBF24', medal: '#94a3b8', bg: '#f1f5f9', bd: '#e2e8f0', emoji: '🥈', h: 62, sz: 48 },
-    { rank: 1, n: 'Antoine', av: 'AV', lvl: '5.80', lc: '#67E8F9', medal: '#f59e0b', bg: '#fef9c3', bd: '#fef08a', emoji: '🏆', h: 80, sz: 56 },
-    { rank: 3, n: 'Naël', av: 'NK', lvl: '4.60', lc: '#FBBF24', medal: '#b45309', bg: '#ffedd5', bd: '#fed7aa', emoji: '🥉', h: 48, sz: 44 },
+    { rank: 2, n: 'Lina', av: 'LE', lvl: '4.90', lc: '#FBBF24', medal: '#94a3b8', bg: '#f1f5f9', bd: '#e2e8f0', emoji: '🥈', h: 62, sz: 48 },
+    { rank: 1, n: 'Amine', av: 'AT', lvl: '5.80', lc: '#67E8F9', medal: '#f59e0b', bg: '#fef9c3', bd: '#fef08a', emoji: '🏆', h: 80, sz: 56 },
+    { rank: 3, n: 'Adam', av: 'AK', lvl: '4.60', lc: '#FBBF24', medal: '#b45309', bg: '#ffedd5', bd: '#fed7aa', emoji: '🥉', h: 48, sz: 44 },
   ];
   const rows: Row[] = [
-    { r: 4, n: 'Sofia Lemoine', av: 'SL', avc: '#0A0A0A', txt: '#fff', league: 'Or', lc: '#FBBF24', m: 42, lvl: '4.40' },
-    { r: 5, n: 'Marco Pereira', av: 'MP', avc: '#FFC11A', txt: '#0A0A0A', league: 'Or', lc: '#FBBF24', m: 55, lvl: '4.10' },
+    { r: 4, n: 'Sara', av: 'SL', avc: '#0A0A0A', txt: '#fff', league: 'Or', lc: '#FBBF24', m: 42, lvl: '4.40' },
+    { r: 5, n: 'Omar', av: 'OF', avc: '#FFC11A', txt: '#0A0A0A', league: 'Or', lc: '#FBBF24', m: 55, lvl: '4.10' },
   ];
   const chips = [
     { l: 'Toutes ligues', active: true, c: '#0A0A0A' },
