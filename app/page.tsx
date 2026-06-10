@@ -22,7 +22,7 @@ function StoreBadges() {
         label="Disponible sur Google Play"
         small="Disponible sur"
         big="Google Play"
-        icon={<svg viewBox="0 0 24 24"><path fill="#00D3FF" d="M3.6 2.3 13 11.7l-2.6 2.6L3 4.8c-.1-.8 0-1.8.6-2.5z" /><path fill="#FFCE00" d="M13 11.7 3.6 2.3l.5-.3 12.5 7.2L13 11.7z" /><path fill="#00F076" d="M3.6 21.1 13 11.7 16.6 15.4 4.1 22.6c-.3-.2-.4-.9-.5-1.5z" /><path fill="#FF3945" d="M13 11.7 16.6 15.4 4.1 22.6c.3.2.7.2 1.1 0L19 14.6c1.4-.8 1.4-2.1 0-2.9L13 11.7z" /></svg>}
+        icon={<svg viewBox="0 0 24 24"><path fill="#00D3FF" d="M3.7 2.3 13.8 12H3.7z" /><path fill="#00F076" d="M3.7 21.7 13.8 12H3.7z" /><path fill="#FF3945" d="M3.7 2.3 20 12h-6.2z" /><path fill="#FFCE00" d="M3.7 21.7 20 12h-6.2z" /></svg>}
       />
     </div>
   );
