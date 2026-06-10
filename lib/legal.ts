@@ -6,15 +6,15 @@ export const LEGAL = {
   appName: 'PAG MATCH',
   responsable: 'QUARTZTEC, SARL à associé unique au capital de 100 000 MAD, immatriculée au registre du commerce de Casablanca sous le n° 521941',
   editor: 'QUARTZTEC, SARL à associé unique au capital de 100 000 MAD, immatriculée au registre du commerce de Casablanca sous le n° 521941',
-  contactEmail: 'support@padelactivegame.com',
+  contactEmail: 'support@pagmatch.com',
   supabaseRegion: 'Union européenne (Irlande — eu-west-1)',
   minAge: 18,
   lastUpdate: '10 juin 2026',
   // URLs des stores (à remplir une fois les apps publiées).
   appStoreUrl: '',
   playStoreUrl: '',
-  // Test fermé : APK Android téléchargé directement (déposer le fichier dans
-  // public/ puis le servir à cette URL). Cible du bouton « Télécharger » de la
-  // page passerelle /open quand l'app n'est pas installée.
-  apkUrl: '/pagmatch.apk',
+  // Test fermé : APK Android servi depuis Supabase Storage (bucket public
+  // « downloads ») — trop gros pour GitHub (>100 Mo). Cible du bouton
+  // « Télécharger » de la page passerelle /open quand l'app n'est pas installée.
+  apkUrl: 'https://icshhobxeppttgayxmba.supabase.co/storage/v1/object/public/downloads/pagmatch.apk',
 } as const;

@@ -12,7 +12,7 @@ Next.js (App Router, TypeScript), zéro dépendance de style (CSS pur).
 Compléter `lib/legal.ts` (doit rester **cohérent** avec `react-matchup/lib/legal.ts`) :
 - `responsable`, `editor`, `supabaseRegion` (Supabase → Project Settings → General)
 - `appStoreUrl`, `playStoreUrl` une fois les apps publiées (sinon les boutons affichent « Bientôt disponible »)
-- `contactEmail` est déjà `support@padelactivegame.com`
+- `contactEmail` est déjà `support@pagmatch.com`
 
 ## Lancer en local
 ```bash
