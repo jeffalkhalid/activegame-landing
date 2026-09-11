@@ -26,7 +26,7 @@ export default function Cgu() {
           compte, vous acceptez ces CGU.
         </p>
 
-        <Section n={1} icon="🎾" title="Le Service">
+        <Section n={1} icon="📱" title="Le Service">
           <p>
             {LEGAL.brand} met en relation les joueurs de padel : organisation de parties, matchmaking,
             classement ELO, défis, messagerie et communauté. Nous facilitons l’organisation entre

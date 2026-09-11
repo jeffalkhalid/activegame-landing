@@ -3,6 +3,7 @@
   "redirects": [
     { "source": "/u/:code", "destination": "/open/?p=invite&code=:code" },
     { "source": "/g/:id", "destination": "/open/?p=game&game=:id" },
-    { "source": "/p/:id", "destination": "/open/?p=player&id=:id" }
+    { "source": "/p/:id", "destination": "/open/?p=player&id=:id" },
+    { "source": "/t/:id", "destination": "/open/?p=tournament&tournament=:id" }
   ]
 }

@@ -24,8 +24,13 @@ function contextLabel(p: string | null): Ctx {
   switch (p) {
     case 'game':
       return {
-        title: 'Tu es invité à une partie 🎾',
+        title: 'Tu es invité à une partie',
         sub: 'Ouvre PAG MATCH pour voir la partie et rejoindre les joueurs.',
+      };
+    case 'tournament':
+      return {
+        title: 'Tu es invité à un tournoi',
+        sub: 'Ouvre PAG MATCH pour voir le tournoi et t’inscrire avec ton binôme.',
       };
     case 'player':
       return {
@@ -54,6 +59,11 @@ function deepPath(q: URLSearchParams): string {
     case 'player': {
       const id = q.get('id');
       return id ? `player/${encodeURIComponent(id)}` : '';
+    }
+    case 'tournament': {
+      // Route expo-router `app/tournaments/[id].tsx` → pagmatch://tournaments/<id>.
+      const id = q.get('tournament');
+      return id ? `tournaments/${encodeURIComponent(id)}` : '';
     }
     default:
       return '';
