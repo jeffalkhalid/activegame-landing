@@ -259,7 +259,13 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
   width: 32%; height: 21px; border-radius: 999px; background: var(--ink); pointer-events: none;
 }
 /* La barre d'onglets reste fixe pendant que la capture longue défile. */
-.phone-tabbar { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: auto; pointer-events: none; }
+/* Selecteur volontairement plus lourd que `.phone-slot > img` ci-dessus :
+   sans cela la barre heritait de `height: 100%` + `object-fit: cover` et
+   s'etalait sur tout l'ecran, en lieu et place du fil. */
+.phone-slot > img.phone-tabbar {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  width: 100%; height: auto; object-fit: contain; pointer-events: none;
+}
 .anim-feed { animation: feedscroll 18s ease-in-out infinite alternate; }
 .anim-story { animation: bilanstory 15s ease-in-out infinite; }
 
@@ -519,7 +525,11 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
 }
 
 @media (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr; text-align: center; padding: 108px 20px 0; gap: 0; }
+  /* `.hero .hero-grid` et non `.hero-grid` seul : la requete 720 ci-dessous
+     redefinit `.wrap { padding: 0 20px }`, de meme poids et plus bas dans le
+     fichier — elle effacait le rembourrage du haut et le hero passait sous la
+     barre de navigation. */
+  .hero .hero-grid { grid-template-columns: 1fr; text-align: center; padding: 108px 20px 0; gap: 0; }
   .hero-copy { max-width: none; margin: 0 auto; }
   .hero h1 { font-size: clamp(38px, 11vw, 46px); margin: 18px 0; }
   .hero .lede { font-size: 16px; max-width: 340px; margin: 0 auto 26px; }
