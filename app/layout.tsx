@@ -8,14 +8,14 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'PAG MATCH — Padel Active Game · Trouve ta partie, suis ton classement',
+  title: 'PAG MATCH — Padel Active Game · Trouve ta partie, suis ton niveau',
   description:
-    'PAG MATCH organise tes parties de padel entre joueurs : matchmaking, classement ELO, défis et communauté.',
-  metadataBase: new URL('https://padelactivegame.com'),
+    'Trouve des joueurs vraiment à ton niveau — calculé sur tes matchs, pas déclaré. Crée ta partie, saisis ton score, regarde ton niveau bouger. L’app des joueurs de padel au Maroc.',
+  metadataBase: new URL('https://pagmatch.com'),
   icons: { icon: '/assets/favicon.png' },
   openGraph: {
     title: 'PAG MATCH — Padel Active Game',
-    description: 'Trouve ta partie, suis ton classement. Rejoins la communauté padel.',
+    description: 'Trouve ta partie, suis ton niveau. L’app des joueurs de padel au Maroc.',
     type: 'website',
   },
 };
