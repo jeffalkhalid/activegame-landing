@@ -394,9 +394,56 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
     radial-gradient(900px 420px at 82% 0%, rgba(255,193,26,0.10), transparent 62%),
     linear-gradient(180deg, #0c0c0e, var(--ink));
 }
+/* Le tableau « binome VS binome » est un GRAPHIQUE WEB, pas l'imitation d'un
+   ecran de l'app : il ne peut donc pas mentir sur son interface. Les trois
+   ecrans dessines qui vivaient ici ont ete retires — ils inventaient un
+   parcours en trois etapes qui n'existe pas, un en-tete et des onglets qui ne
+   sont pas ceux du hub Defi. Ne remettre ici que de VRAIES captures. */
+.defi-visual { display: flex; align-items: center; justify-content: center; }
+.defi-card {
+  position: relative; overflow: hidden; width: 100%;
+  padding: 30px 26px; border-radius: 24px;
+  background: linear-gradient(180deg, var(--ink-card), var(--ink-card-2)); border: 1px solid var(--line);
+}
+.defi-card > .pill { position: relative; margin-bottom: 24px; }
+.defi-orb {
+  position: absolute; right: -120px; top: -160px; width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,193,26,0.12), transparent 65%); pointer-events: none;
+}
+.defi-board { position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; }
+.team { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 22px 12px; border-radius: 18px; background: var(--ink); border: 1px solid var(--line); }
+.team-av { display: flex; }
+.av {
+  width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center;
+  background: #27272A; color: var(--text); font-weight: 900; font-size: 20px; border: 3px solid var(--ink);
+}
+.av.me { background: var(--brand); color: var(--on-brand); }
+.av + .av { margin-left: -14px; }
+.team-n { font-family: var(--f-mono-ui); font-weight: 800; font-size: 14px; color: var(--text); }
+.team-l { font-size: 12px; color: var(--text-mute); font-weight: 600; }
+.vs { font-family: var(--f-display); font-size: 40px; line-height: 1; color: var(--brand); text-align: center; }
+/* L'enjeu s'exprime EN NIVEAU, la perte d'abord — comme StakeLine dans l'app. */
+.stake { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; gap: 14px; padding-top: 4px; flex-wrap: wrap; }
+.stake-k { font-family: var(--f-mono-ui); font-weight: 800; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mute); }
+.stake-lose { font-family: var(--f-display); font-size: 22px; color: #FCA5A5; }
+.stake-win { font-family: var(--f-display); font-size: 22px; color: #6EE7B7; }
+.stake-sep { color: var(--text-faint); }
+.stake-u { font-size: 12px; color: var(--text-mute); font-weight: 600; }
+
+/* Face-a-face : le score du duel, les cinq derniers, depuis quand. C'est lui
+   qui rend la revanche desirable — sans lui, « Revanche ? » n'est qu'un bouton. */
+.h2h { position: relative; display: flex; align-items: center; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.h2h-k { font-family: var(--f-mono-ui); font-weight: 800; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mute); }
+.h2h-s { font-family: var(--f-display); font-size: 26px; line-height: 1; color: var(--text); }
+.h2h-s span { color: var(--text-faint); margin: 0 3px; }
+.h2h-hist { display: flex; gap: 4px; }
+.h2h-hist span { width: 16px; height: 6px; border-radius: 3px; }
+.h2h-hist .w { background: #6EE7B7; }
+.h2h-hist .l { background: rgba(255,255,255,0.18); }
+.h2h-n { font-size: 12px; color: var(--text-mute); font-weight: 600; margin-left: auto; }
+
 .rail { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 28px; margin-top: 56px; }
 .rail-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.rail-n { font-family: var(--f-display); font-size: 28px; line-height: 1; color: var(--brand); margin-top: 24px; }
 .rail-item h3 { font-family: var(--f-mono-ui); font-size: 18px; font-weight: 800; color: var(--text); margin: 8px 0 8px; }
 .rail-item p { font-size: 14.5px; line-height: 1.6; color: var(--text-mute); font-weight: 500; max-width: 300px; }
 
@@ -485,6 +532,7 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
   .sec-lede { max-width: none; }
   .checklist { max-width: none; }
   .cards3 { grid-template-columns: 1fr; margin-top: 40px; }
+  .defi-card { padding: 24px 18px; }
   .sec-defi { padding: 70px 0; }
   .rail { grid-template-columns: 1fr; gap: 40px; }
   .steps { grid-template-columns: 1fr; }
@@ -544,6 +592,13 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
   .rail::-webkit-scrollbar { display: none; }
   .rail > .rail-item { flex: 0 0 74%; scroll-snap-align: center; }
   .rail-item h3 { margin: 18px 0 6px; }
+
+  .defi-board { gap: 10px; }
+  .team { padding: 16px 8px; gap: 8px; }
+  .av { width: 42px; height: 42px; border-radius: 13px; font-size: 16px; }
+  .av + .av { margin-left: -12px; }
+  .team-n { font-size: 12.5px; }
+  .vs { font-size: 30px; }
 
   .proofs-grid { grid-template-columns: 1fr; gap: 18px; }
   .proof { padding: 0; }
