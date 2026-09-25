@@ -399,8 +399,15 @@ function Defi() {
           </div>
         </div>
 
-        <div className="reveal defi-visual" data-delay="90ms">
-          <div className="defi-card">
+        <div className="reveal phone-col" data-delay="90ms">
+          <Phone size="238" src="/screens/defi-hub.png" alt="Hub Défi : les défis à relever, avec l’enjeu de chacun" />
+        </div>
+      </div>
+
+      {/* ... et la carte passe en bande pleine largeur, sous les deux colonnes :
+          c'est elle qui porte l'enjeu et le face-a-face, elle a besoin de place. */}
+      <div className="wrap">
+        <div className="defi-card reveal">
             <div className="defi-orb" aria-hidden="true" />
             <div className="pill tight"><span>Ça compte pour de vrai</span></div>
             <div className="defi-board">
@@ -432,7 +439,6 @@ function Defi() {
               </div>
               <div className="h2h-n">5 duels depuis mars</div>
             </div>
-          </div>
         </div>
       </div>
     </section>
