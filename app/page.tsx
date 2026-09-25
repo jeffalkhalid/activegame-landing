@@ -80,7 +80,6 @@ function Phone({ src, alt, size, anim, tabbar, className = '' }: {
       <div className="phone-slot">
         <img src={src} alt={alt} className={anim ? `anim-${anim}` : undefined} />
         {tabbar && <img className="phone-tabbar" src="/screens/3b-tabbar.png" alt="" aria-hidden="true" />}
-        <span className="phone-island" aria-hidden="true" />
       </div>
     </div>
   );
@@ -136,6 +135,7 @@ function Nav() {
         <div className="nav-links">
           <a href="#orga">Fonctionnement</a>
           <a href="#profil">Ton profil</a>
+          <a href="#defi">Le défi</a>
           <a href="#score">Le score</a>
           <a href="#how">Comment ça marche</a>
         </div>
@@ -365,7 +365,60 @@ function Profil() {
   );
 }
 
-/* ---------- 03. LE SCORE -------------------------------------------------- */
+/* ---------- 03. LE DÉFI ---------------------------------------------------- */
+
+function Defi() {
+  // Trois etapes, trois ecrans — meme grammaire que le rail de « Le score ».
+  const etapes = [
+    {
+      n: '01',
+      src: '/screens/defi-1-binome.png',
+      alt: 'Choix du binôme : inviter son partenaire',
+      t: 'Tu choisis ton binôme',
+      d: 'Un défi ne se relève jamais seul. Tu invites ton partenaire, et rien ne part tant qu’il n’a pas confirmé.',
+    },
+    {
+      n: '02',
+      src: '/screens/defi-2-enjeu.png',
+      alt: 'L’enjeu affiché avant le match : ce que tu perds, ce que tu gagnes',
+      t: 'L’enjeu s’affiche avant',
+      d: 'Ce que tu prends en gagnant, ce que tu laisses en perdant. Calculé sur les quatre joueurs — et ton chiffre n’est pas celui de ton partenaire.',
+    },
+    {
+      n: '03',
+      src: '/screens/defi-3-valeurs.png',
+      alt: 'Le défi lancé : chaque binôme voit son enjeu',
+      t: 'Chaque camp voit le sien',
+      d: 'Le défi part. En défi ciblé, tes adversaires sont invités dès que ton binôme est bouclé — avec leur propre enjeu sous les yeux.',
+    },
+  ];
+  return (
+    <section className="sec sec-defi" id="defi">
+      <div className="wrap">
+        <div className="section-head reveal">
+          <Eyebrow>Le défi</Eyebrow>
+          <h2 className="welcome">«&nbsp;Allez, on vous prend <span className="y">quand vous voulez</span>&nbsp;»</h2>
+          <p className="sec-lede">
+            Cette phrase-là, tout le monde l&apos;a dite. Le défi, c&apos;est elle transformée en match :{' '}
+            <strong>deux joueurs contre deux joueurs, et des points en jeu.</strong> Trois étapes, et c&apos;est tout.
+          </p>
+        </div>
+        <div className="rail">
+          {etapes.map((e, i) => (
+            <div className="rail-item reveal" key={e.n} data-delay={`${i * 90}ms`}>
+              <Phone size="232" src={e.src} alt={e.alt} />
+              <div className="rail-n">{e.n}</div>
+              <h3>{e.t}</h3>
+              <p>{e.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 04. LE SCORE -------------------------------------------------- */
 
 function Score() {
   return (
@@ -381,38 +434,6 @@ function Score() {
             valide, l&apos;enjeu est connu d&apos;avance, et chaque match alimente ton classement,
             ton palmarès, tes badges et ton bilan du mois.
           </p>
-        </div>
-
-        <div className="defi reveal">
-          <div className="defi-orb" aria-hidden="true" />
-          <div className="defi-copy">
-            <div className="pill tight"><span>Ça compte pour de vrai</span></div>
-            <h3 className="welcome">Le défi 2 contre 2</h3>
-            <p>
-              Tu choisis ton partenaire, vous défiez un autre binôme. En défi ciblé, tu désignes
-              les adversaires : ils sont invités dès que ton binôme a confirmé.
-            </p>
-          </div>
-          <div className="defi-board">
-            <div className="team">
-              <div className="team-av"><span className="av me">Y</span><span className="av">M</span></div>
-              <div className="team-n">Toi + Mehdi</div>
-              <div className="team-l">Niv. 4.2 · 4.3</div>
-            </div>
-            <div className="vs">VS</div>
-            <div className="team">
-              <div className="team-av"><span className="av">S</span><span className="av">K</span></div>
-              <div className="team-n">Salma + Karim</div>
-              <div className="team-l">Niv. 4.0 · 4.3</div>
-            </div>
-            <div className="stake">
-              <span className="stake-k">Enjeu affiché avant</span>
-              <span className="stake-lose">−0,05</span>
-              <span className="stake-sep">/</span>
-              <span className="stake-win">+0,07</span>
-              <span className="stake-u">de niveau</span>
-            </div>
-          </div>
         </div>
 
         <div className="rail">
@@ -531,6 +552,7 @@ function Footer() {
             <h4>Produit</h4>
             <a href="#orga">Fonctionnement</a>
             <a href="#profil">Ton profil</a>
+            <a href="#defi">Le défi</a>
             <a href="#score">Le score</a>
             <a href="#how">Comment ça marche</a>
             <a href="#download">Télécharger</a>
@@ -564,6 +586,7 @@ export default function Home() {
       <Hero />
       <Orga />
       <Profil />
+      <Defi />
       <Score />
       <How />
       <Proofs />

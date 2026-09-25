@@ -254,10 +254,9 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
 }
 .phone-slot { position: relative; aspect-ratio: 1290 / 2796; border-radius: 31px; overflow: hidden; background: var(--ink); }
 .phone-slot > img { width: 100%; height: 100%; object-fit: cover; }
-.phone-island {
-  position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-  width: 32%; height: 21px; border-radius: 999px; background: var(--ink); pointer-events: none;
-}
+/* Pas de surcouche « encoche » ici : les captures d'ecran sont prises en plein
+   ecran et portent DEJA leur encoche. En dessiner une seconde la posait sur le
+   logo PAG MATCH de l'app, quelques pixels plus bas. */
 /* La barre d'onglets reste fixe pendant que la capture longue défile. */
 /* Selecteur volontairement plus lourd que `.phone-slot > img` ci-dessus :
    sans cela la barre heritait de `height: 100%` + `object-fit: cover` et
@@ -271,11 +270,9 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
 
 .phone.w-hero { width: 290px; border-radius: 44px; padding: 11px; transform: rotate(4deg); }
 .phone.w-hero .phone-slot { border-radius: 34px; }
-.phone.w-hero .phone-island { top: 11px; height: 24px; }
 .phone.w-238 { width: 238px; }
 .phone.w-262 { width: 262px; border-radius: 42px; padding: 11px; }
 .phone.w-262 .phone-slot { border-radius: 32px; }
-.phone.w-262 .phone-island { height: 22px; }
 .phone.w-232 { width: 232px; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -389,42 +386,18 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
 .score-head h2 { margin: 16px 0 0; }
 .score-head .sec-lede { max-width: none; }
 
-.defi {
-  position: relative; overflow: hidden;
-  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.1fr); gap: 40px; align-items: center;
-  padding: 40px 44px; border-radius: 24px;
-  background: linear-gradient(180deg, var(--ink-card), var(--ink-card-2)); border: 1px solid var(--line);
+/* La section a son propre fond : c'est ce qui la distingue des sections
+   voisines et la signale comme un temps fort, sans crier. */
+.sec-defi {
+  padding: 110px 0; border-top: 1px solid var(--line-2);
+  background:
+    radial-gradient(900px 420px at 82% 0%, rgba(255,193,26,0.10), transparent 62%),
+    linear-gradient(180deg, #0c0c0e, var(--ink));
 }
-.defi-orb {
-  position: absolute; right: -120px; top: -160px; width: 420px; height: 420px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,193,26,0.12), transparent 65%); pointer-events: none;
-}
-.defi-copy { position: relative; }
-.defi-copy h3 { font-size: 44px; line-height: 0.95; color: var(--text); margin: 16px 0 14px; }
-.defi-copy p { font-size: 15.5px; line-height: 1.6; color: var(--text-dim); font-weight: 500; max-width: 440px; }
-.defi-board { position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; }
-.team { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 22px 12px; border-radius: 18px; background: var(--ink); border: 1px solid var(--line); }
-.team-av { display: flex; }
-.av {
-  width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center;
-  background: #27272A; color: var(--text); font-weight: 900; font-size: 20px; border: 3px solid var(--ink);
-}
-.av.me { background: var(--brand); color: var(--on-brand); }
-.av + .av { margin-left: -14px; }
-.team-n { font-family: var(--f-mono-ui); font-weight: 800; font-size: 14px; color: var(--text); }
-.team-l { font-size: 12px; color: var(--text-mute); font-weight: 600; }
-.vs { font-family: var(--f-display); font-size: 40px; line-height: 1; color: var(--brand); text-align: center; }
-/* L'enjeu s'exprime EN NIVEAU, la perte d'abord — comme StakeLine dans l'app. */
-.stake { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; gap: 14px; padding-top: 4px; flex-wrap: wrap; }
-.stake-k { font-family: var(--f-mono-ui); font-weight: 800; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mute); }
-.stake-lose { font-family: var(--f-display); font-size: 22px; color: #FCA5A5; }
-.stake-win { font-family: var(--f-display); font-size: 22px; color: #6EE7B7; }
-.stake-sep { color: var(--text-faint); }
-.stake-u { font-size: 12px; color: var(--text-mute); font-weight: 600; }
-
 .rail { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 28px; margin-top: 56px; }
 .rail-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.rail-item h3 { font-family: var(--f-mono-ui); font-size: 18px; font-weight: 800; color: var(--text); margin: 26px 0 8px; }
+.rail-n { font-family: var(--f-display); font-size: 28px; line-height: 1; color: var(--brand); margin-top: 24px; }
+.rail-item h3 { font-family: var(--f-mono-ui); font-size: 18px; font-weight: 800; color: var(--text); margin: 8px 0 8px; }
 .rail-item p { font-size: 14.5px; line-height: 1.6; color: var(--text-mute); font-weight: 500; max-width: 300px; }
 
 /* ============================================================
@@ -433,6 +406,7 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
 .how { padding: 100px 0; background: linear-gradient(180deg, var(--ink), #0c0c0e); border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); }
 .section-head { max-width: 680px; margin-bottom: 54px; }
 .section-head h2 { font-size: clamp(40px, 4.6vw, 60px); margin: 16px 0 0; color: var(--text); }
+.section-head .sec-lede { margin-top: 20px; max-width: 620px; }
 .steps { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
 .step { position: relative; padding: 28px; border-radius: 20px; border: 1px solid var(--line-2); background: rgba(19,19,21,0.6); }
 .step-n { display: flex; align-items: center; gap: 14px; }
@@ -511,8 +485,7 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
   .sec-lede { max-width: none; }
   .checklist { max-width: none; }
   .cards3 { grid-template-columns: 1fr; margin-top: 40px; }
-  .defi { grid-template-columns: 1fr; padding: 28px 22px; gap: 28px; }
-  .defi-copy h3 { font-size: 34px; }
+  .sec-defi { padding: 70px 0; }
   .rail { grid-template-columns: 1fr; gap: 40px; }
   .steps { grid-template-columns: 1fr; }
   .how { padding: 70px 0; }
@@ -571,13 +544,6 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
   .rail::-webkit-scrollbar { display: none; }
   .rail > .rail-item { flex: 0 0 74%; scroll-snap-align: center; }
   .rail-item h3 { margin: 18px 0 6px; }
-
-  .defi-board { grid-template-columns: 1fr auto 1fr; gap: 10px; }
-  .team { padding: 16px 8px; gap: 8px; }
-  .av { width: 42px; height: 42px; border-radius: 13px; font-size: 16px; }
-  .av + .av { margin-left: -12px; }
-  .team-n { font-size: 12.5px; }
-  .vs { font-size: 30px; }
 
   .proofs-grid { grid-template-columns: 1fr; gap: 18px; }
   .proof { padding: 0; }
