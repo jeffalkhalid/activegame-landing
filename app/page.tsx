@@ -368,77 +368,106 @@ function Profil() {
 /* ---------- 03. LE DÉFI ---------------------------------------------------- */
 
 function Defi() {
-  // PAS d'écran dessiné ici. Trois écrans inventés y ont vécu quelques heures :
-  // ils affichaient un parcours « étape 1/2/3 », un en-tête et des onglets qui
-  // ne sont pas ceux du hub Défi. Le tableau ci-dessous est un graphique web :
-  // il ne prétend pas montrer l'app, donc il ne peut pas mentir sur elle. Une
-  // VRAIE capture du hub Défi prendra sa place le jour venu.
+  // Les trois paliers sont ceux de l'app, pas une invention de la page :
+  // DEFI_STAKES dans app/(tabs)/CreateWizard.tsx — Soft ×2, Standard ×3
+  // (defaut), High Stakes ×4 — et les couleurs viennent de stakeTone()
+  // dans lib/defis.ts : vert <=2, jaune <=3, rouge au-dela.
+  const paliers = [
+    { x: '×2', nom: 'Soft', ton: 'soft', d: 'Le défi qui ne fait pas peur. Ton niveau bouge, sans te mettre en danger.' },
+    { x: '×3', nom: 'Standard', ton: 'std', defaut: true, d: 'Le réglage proposé par défaut. Assez d’enjeu pour que le match compte.' },
+    { x: '×4', nom: 'High Stakes', ton: 'high', d: 'Tout est amplifié, la perte comme le gain. À sortir quand tu y crois.' },
+  ];
+  const etapes = [
+    { n: '01', t: 'Choisis ton binôme', d: 'Tu invites ton partenaire. Rien ne part tant qu’il n’a pas confirmé.' },
+    { n: '02', t: 'Défie tes adversaires', d: 'Tu désignes le binôme que tu veux affronter — ils sont invités dès que le tien est bouclé.' },
+    { n: '03', t: 'Choisis ×2, ×3 ou ×4', d: 'Tu fixes l’intensité de l’enjeu avant le match, pas après.' },
+    { n: '04', t: 'Joue et valide le score', d: 'L’adversaire valide, ton niveau bouge tout seul.' },
+  ];
   return (
     <section className="sec sec-defi" id="defi">
-      <div className="wrap split">
-        <div className="reveal">
-          <Eyebrow>Le défi</Eyebrow>
-          <h2 className="welcome">«&nbsp;Allez, on vous prend <span className="y">quand vous voulez</span>&nbsp;»</h2>
+      <div className="wrap">
+        <div className="section-head reveal">
+          <div className="pill tight"><span>Ça compte pour de vrai</span></div>
+          <h2 className="welcome" style={{ marginTop: 18 }}>Défie un binôme. <span className="y">Mets ton niveau en jeu.</span></h2>
           <p className="sec-lede">
-            Cette phrase-là, tout le monde l&apos;a dite. Le défi, c&apos;est elle transformée en match :{' '}
-            <strong>deux joueurs contre deux joueurs, et des points en jeu.</strong>
+            Choisis ton partenaire, trouve le binôme que tu veux affronter et lance un défi
+            2 contre 2. Ce n&apos;est pas un match de plus : <strong>l&apos;enjeu est affiché avant de jouer.</strong>
           </p>
-          <div className="checklist">
-            <div className="check">
-              <Check />
-              <p>Tu commences par <strong>choisir ton binôme.</strong> Un défi ne se relève jamais seul, et rien ne part tant que ton partenaire n&apos;a pas confirmé. En défi ciblé, tu désignes aussi les adversaires.</p>
-            </div>
-            <div className="check">
-              <Check />
-              <p><strong>L&apos;enjeu te dit si ça vaut le coup.</strong> Avant d&apos;accepter, tu vois ce que ce match précis te rapporte et ce qu&apos;il te coûte. Gagner contre plus faible que toi ne rapporte presque rien — c&apos;est ce qui pousse à jouer plus haut que sa zone de confort.</p>
-            </div>
-            <div className="check">
-              <Check />
-              <p><strong>La revanche est à un geste.</strong> Sous ta défaite, dans le fil, un bouton « Revanche&nbsp;? » qui ouvre le défi. Et à partir de trois duels contre le même joueur, l&apos;app tient votre face-à-face.</p>
-            </div>
-          </div>
         </div>
 
+        {/* Les paliers — le coeur du mode defi. */}
+        <div className="tiers">
+          {paliers.map((p, i) => (
+            <div className={`tier t-${p.ton}${p.defaut ? ' on' : ''} reveal`} key={p.x} data-delay={`${i * 70}ms`}>
+              {p.defaut && <div className="tier-flag">Par défaut</div>}
+              <div className="tier-x">{p.x}</div>
+              <div className="tier-n">{p.nom}</div>
+              <p>{p.d}</p>
+            </div>
+          ))}
+        </div>
+        <p className="tiers-note reveal">Plus le palier est haut, plus ce match pèse sur ton niveau — dans les deux sens.</p>
+      </div>
+
+      <div className="wrap split">
+        <div className="reveal">
+          <div className="steps4">
+            {etapes.map((e, i) => (
+              <div className="st4" key={e.n} data-delay={`${i * 60}ms`}>
+                <div className="st4-n">{e.n}</div>
+                <div>
+                  <div className="st4-t">{e.t}</div>
+                  <div className="st4-d">{e.d}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="reveal phone-col" data-delay="90ms">
           <Phone size="238" src="/screens/defi-hub.png" alt="Hub Défi : les défis à relever, avec l’enjeu de chacun" />
         </div>
       </div>
 
-      {/* ... et la carte passe en bande pleine largeur, sous les deux colonnes :
-          c'est elle qui porte l'enjeu et le face-a-face, elle a besoin de place. */}
+      {/* L'enjeu sur un match, et ce qui vient apres : la revanche. */}
       <div className="wrap">
         <div className="defi-card reveal">
-            <div className="defi-orb" aria-hidden="true" />
-            <div className="pill tight"><span>Ça compte pour de vrai</span></div>
-            <div className="defi-board">
-              <div className="team">
-                <div className="team-av"><span className="av me">Y</span><span className="av">M</span></div>
-                <div className="team-n">Toi + Mehdi</div>
-                <div className="team-l">Niv. 4.20 · 4.30</div>
-              </div>
-              <div className="vs">VS</div>
-              <div className="team">
-                <div className="team-av"><span className="av">S</span><span className="av">K</span></div>
-                <div className="team-n">Salma + Karim</div>
-                <div className="team-l">Niv. 4.05 · 4.30</div>
-              </div>
-              <div className="stake">
-                <span className="stake-k">Ce match te vaut</span>
-                <span className="stake-lose">−0,05</span>
-                <span className="stake-sep">/</span>
-                <span className="stake-win">+0,07</span>
-                <span className="stake-u">de niveau</span>
-              </div>
+          <div className="defi-orb" aria-hidden="true" />
+          <div className="defi-head">
+            <span className="tier-chip t-std">Défi ×3</span>
+            <span className="defi-head-k">Un exemple</span>
+          </div>
+          <div className="defi-board">
+            <div className="team">
+              <div className="team-av"><span className="av me">Y</span><span className="av">M</span></div>
+              <div className="team-n">Toi + Mehdi</div>
+              <div className="team-l">Niv. 4.20 · 4.30</div>
             </div>
-            {/* Le face-a-face : ce qui donne envie de la revanche. */}
-            <div className="h2h">
-              <div className="h2h-k">Votre face-à-face</div>
-              <div className="h2h-s">3<span>–</span>2</div>
-              <div className="h2h-hist" aria-hidden="true">
-                <span className="w" /><span className="l" /><span className="w" /><span className="l" /><span className="w" />
-              </div>
-              <div className="h2h-n">5 duels depuis mars</div>
+            <div className="vs">VS</div>
+            <div className="team">
+              <div className="team-av"><span className="av">S</span><span className="av">K</span></div>
+              <div className="team-n">Salma + Karim</div>
+              <div className="team-l">Niv. 4.05 · 4.30</div>
             </div>
+            <div className="stake">
+              <span className="stake-k">Ce match te vaut</span>
+              <span className="stake-lose">−0,05</span>
+              <span className="stake-sep">/</span>
+              <span className="stake-win">+0,07</span>
+              <span className="stake-u">de niveau</span>
+            </div>
+          </div>
+          <div className="h2h">
+            <div className="h2h-k">Votre face-à-face</div>
+            <div className="h2h-s">3<span>–</span>2</div>
+            <div className="h2h-hist" aria-hidden="true">
+              <span className="w" /><span className="l" /><span className="w" /><span className="l" /><span className="w" />
+            </div>
+            <div className="h2h-n">5 duels depuis mars</div>
+          </div>
+          <p className="defi-revanche">
+            Perdu&nbsp;? Sous ta défaite, dans le fil, un bouton «&nbsp;Revanche&nbsp;?&nbsp;» relance le défi.
+          </p>
+          <a className="btn btn-brand defi-cta" href="#download">Lancer un défi</a>
         </div>
       </div>
     </section>

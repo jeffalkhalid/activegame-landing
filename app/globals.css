@@ -429,6 +429,52 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
 .stake-sep { color: var(--text-faint); }
 .stake-u { font-size: 12px; color: var(--text-mute); font-weight: 600; }
 
+/* ---- Les trois paliers de mise ----
+   Valeurs et libelles repris de DEFI_STAKES (CreateWizard) ; couleurs de
+   stakeTone() (lib/defis.ts) : vert <=2, jaune <=3, rouge au-dela. */
+.tiers { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-top: 44px; }
+.tier {
+  position: relative; border-radius: 20px; padding: 26px 22px 24px;
+  background: linear-gradient(180deg, var(--ink-card), var(--ink-card-2));
+  border: 1px solid var(--line); transition: transform .25s ease, border-color .25s ease;
+}
+.tier:hover { transform: translateY(-4px); }
+.tier.on { border-color: var(--brand-line); background: linear-gradient(180deg, rgba(255,193,26,0.07), var(--ink-card-2)); }
+.tier-flag {
+  position: absolute; top: -10px; left: 22px; background: var(--brand); color: var(--on-brand);
+  font-family: var(--f-mono-ui); font-weight: 800; font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 999px;
+}
+.tier-x { font-family: var(--f-display); font-size: 46px; line-height: 1; }
+.tier-n {
+  font-family: var(--f-mono-ui); font-weight: 800; font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text); margin: 10px 0 10px;
+}
+.tier p { font-size: 14px; line-height: 1.6; color: var(--text-mute); font-weight: 500; }
+.t-soft .tier-x { color: #10B981; }
+.t-std  .tier-x { color: var(--brand); }
+.t-high .tier-x { color: #EF4444; }
+.tiers-note { margin-top: 20px; font-size: 14.5px; color: var(--text-mute); font-weight: 500; }
+.tier-chip {
+  display: inline-block; font-family: var(--f-mono-ui); font-weight: 800; font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px;
+}
+.tier-chip.t-std { background: var(--brand); color: var(--on-brand); }
+
+/* ---- Les quatre etapes ---- */
+.steps4 { display: flex; flex-direction: column; }
+.st4 { display: flex; gap: 18px; align-items: flex-start; padding: 17px 0; border-bottom: 1px solid var(--line-2); }
+.st4:first-child { border-top: 1px solid var(--line-2); }
+.st4-n { font-family: var(--f-display); font-size: 26px; line-height: 1; color: var(--brand); flex: none; min-width: 42px; }
+.st4-t { font-family: var(--f-mono-ui); font-weight: 800; font-size: 16px; color: var(--text); }
+.st4-d { font-size: 14.5px; line-height: 1.55; color: var(--text-mute); font-weight: 500; margin-top: 3px; }
+
+/* ---- L'exemple chiffre ---- */
+.defi-head { position: relative; display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.defi-head-k { font-family: var(--f-mono-ui); font-weight: 800; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-faint); }
+.defi-revanche { position: relative; margin-top: 18px; font-size: 14.5px; line-height: 1.6; color: var(--text-dim); font-weight: 500; }
+.defi-cta { position: relative; margin-top: 22px; }
+
 /* Face-a-face : le score du duel, les cinq derniers, depuis quand. C'est lui
    qui rend la revanche desirable — sans lui, « Revanche ? » n'est qu'un bouton. */
 .h2h { position: relative; display: flex; align-items: center; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); flex-wrap: wrap; }
@@ -531,6 +577,8 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
   .sec-lede { max-width: none; }
   .checklist { max-width: none; }
   .cards3 { grid-template-columns: 1fr; margin-top: 40px; }
+  .tiers { grid-template-columns: 1fr; margin-top: 36px; }
+  .tier { padding: 22px 18px 20px; }
   .defi-card { padding: 24px 18px; }
   .sec-defi { padding: 70px 0; }
   .rail { grid-template-columns: 1fr; gap: 40px; }
