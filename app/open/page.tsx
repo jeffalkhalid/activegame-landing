@@ -16,6 +16,14 @@ import { LEGAL } from '@/lib/legal';
 // `browser_fallback_url`. Si l'app gère le scheme `pagmatch`, Android l'ouvre ;
 // sinon Chrome suit le fallback (cette même page avec ?noredirect=1, qui ne
 // retente pas → pas de boucle, et affiche le bouton de téléchargement).
+//
+// Mécanisme iOS : il n'existe pas d'équivalent d'`intent://`. Et on ne redirige
+// PAS automatiquement vers `pagmatch://` : si l'app n'est pas installée, Safari
+// affiche une alerte d'erreur brutale à quelqu'un qui vient simplement de
+// cliquer sur l'invitation d'un ami. On propose donc un bouton « J'ai déjà
+// l'app » — un geste volontaire, sans surprise. La solution définitive est le
+// Universal Link (l'app s'ouvre sans passer par cette page), qui demande le
+// Team ID Apple : à poser dès qu'il sera disponible.
 // ─────────────────────────────────────────────────────────────────────────
 
 type Ctx = { title: string; sub: string };
@@ -75,20 +83,31 @@ export default function OpenGate() {
   // true dès qu'on a tenté d'ouvrir l'app (affiche un message « rien ne s'est
   // passé ? Installe l'app »). Sur ?noredirect=1 on n'a pas tenté.
   const [triedApp, setTriedApp] = useState(false);
+  // iOS ne sait pas faire d'`intent://` : on lui propose un bouton au lieu
+  // d'une redirection automatique qui échouerait bruyamment.
+  const [estIOS, setEstIOS] = useState(false);
+  const [chemin, setChemin] = useState('');
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     setCtx(contextLabel(q.get('p')));
 
+    const path = deepPath(q);
+    setChemin(path);
+
     const noRedirect = q.get('noredirect') === '1';
     const isAndroid = /android/i.test(navigator.userAgent);
-    if (noRedirect || !isAndroid) return; // iOS/desktop ou retour de fallback : on montre juste la landing
+    // iPadOS se déclare « Macintosh » : le test tactile le rattrape.
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent)
+      || (/macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+    setEstIOS(isIOS);
+
+    if (noRedirect || !isAndroid) return; // iOS/ordinateur ou retour de repli
 
     // Fallback = cette même page, sans nouvelle tentative (anti-boucle).
     const fallback = new URL(window.location.href);
     fallback.searchParams.set('noredirect', '1');
 
-    const path = deepPath(q);
     const intentUrl =
       `intent://${path}#Intent;scheme=pagmatch;` +
       `S.browser_fallback_url=${encodeURIComponent(fallback.toString())};end`;
@@ -99,6 +118,7 @@ export default function OpenGate() {
   }, []);
 
   const hasApk = Boolean(LEGAL.apkUrl);
+  const hasStore = Boolean(LEGAL.appStoreUrl);
 
   return (
     <main
@@ -127,23 +147,42 @@ export default function OpenGate() {
         {ctx.sub}
       </p>
 
+      {/* iOS : geste volontaire plutôt que redirection automatique — si l'app
+          n'est pas installée, Safari afficherait une alerte d'erreur à
+          quelqu'un qui vient de cliquer sur l'invitation d'un ami. */}
+      {estIOS && chemin && (
+        <a
+          className="btn btn-brand"
+          href={`pagmatch://${chemin}`}
+          style={{ marginTop: 8 }}
+        >
+          J’ai déjà l’app — l’ouvrir
+        </a>
+      )}
+
       <a
-        className="btn btn-brand"
-        href={hasApk ? LEGAL.apkUrl : undefined}
-        aria-disabled={!hasApk}
+        className={estIOS && chemin ? 'btn' : 'btn btn-brand'}
+        href={estIOS ? (hasStore ? LEGAL.appStoreUrl : undefined) : (hasApk ? LEGAL.apkUrl : undefined)}
+        aria-disabled={estIOS ? !hasStore : !hasApk}
         style={{
           marginTop: 8,
-          opacity: hasApk ? 1 : 0.5,
-          pointerEvents: hasApk ? 'auto' : 'none',
+          opacity: (estIOS ? hasStore : hasApk) ? 1 : 0.5,
+          pointerEvents: (estIOS ? hasStore : hasApk) ? 'auto' : 'none',
         }}
       >
-        {hasApk ? 'Télécharger l’app (Android)' : 'Bientôt disponible'}
+        {estIOS
+          ? (hasStore ? 'Télécharger sur l’App Store' : 'Bientôt sur l’App Store')
+          : (hasApk ? 'Télécharger l’app (Android)' : 'Bientôt disponible')}
       </a>
 
       <p style={{ color: 'var(--muted-2)', fontSize: 13, maxWidth: 380, lineHeight: 1.6 }}>
-        {triedApp
-          ? 'Rien ne s’est passé ? L’app n’est pas encore installée — télécharge-la ci-dessus.'
-          : 'Application Android. Après le téléchargement, autorise l’installation depuis cette source pour ouvrir le fichier.'}
+        {estIOS
+          ? (chemin
+              ? 'Si rien ne s’ouvre, c’est que l’app n’est pas installée sur cet iPhone.'
+              : 'L’app iPhone arrive bientôt. En attendant, elle est disponible sur Android.')
+          : triedApp
+            ? 'Rien ne s’est passé ? L’app n’est pas encore installée — télécharge-la ci-dessus.'
+            : 'Application Android. Après le téléchargement, autorise l’installation depuis cette source pour ouvrir le fichier.'}
       </p>
 
       <div style={{ marginTop: 16, display: 'flex', gap: 18, flexWrap: 'wrap', justifyContent: 'center' }}>
