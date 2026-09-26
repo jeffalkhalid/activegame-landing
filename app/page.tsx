@@ -373,9 +373,9 @@ function Defi() {
   // (defaut), High Stakes ×4 — et les couleurs viennent de stakeTone()
   // dans lib/defis.ts : vert <=2, jaune <=3, rouge au-dela.
   const paliers = [
-    { x: '×2', nom: 'Soft', ton: 'soft', d: 'Le défi qui ne fait pas peur. Ton niveau bouge, sans te mettre en danger.' },
-    { x: '×3', nom: 'Standard', ton: 'std', defaut: true, d: 'Le réglage proposé par défaut. Assez d’enjeu pour que le match compte.' },
-    { x: '×4', nom: 'High Stakes', ton: 'high', d: 'Tout est amplifié, la perte comme le gain. À sortir quand tu y crois.' },
+    { x: '×2', nom: 'Soft', ton: 'soft', d: 'Un défi pour faire bouger ton niveau.' },
+    { x: '×3', nom: 'Standard', ton: 'std', defaut: true, d: 'Un enjeu plus fort pour monter plus vite.' },
+    { x: '×4', nom: 'High Stakes', ton: 'high', d: 'Le défi à forte intensité : chaque point compte.' },
   ];
   const etapes = [
     { n: '01', t: 'Choisis ton binôme', d: 'Tu invites ton partenaire. Rien ne part tant qu’il n’a pas confirmé.' },
@@ -450,9 +450,9 @@ function Defi() {
             </div>
             <div className="stake">
               <span className="stake-k">Ce match te vaut</span>
-              <span className="stake-lose">−0,05</span>
+              <span className="stake-lose">−0,33</span>
               <span className="stake-sep">/</span>
-              <span className="stake-win">+0,07</span>
+              <span className="stake-win">+0,26</span>
               <span className="stake-u">de niveau</span>
             </div>
           </div>
