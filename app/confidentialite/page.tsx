@@ -78,6 +78,12 @@ export default function Confidentialite() {
             <Sub logo="🤖" color="#ff7a00" name="Google FCM" role="Notifications Android" />
             <Sub logo="" color="#a1a1aa" name="Apple APNs" role="Notifications iOS" />
             <Sub logo="☁︎" color="#38bdf8" name="Cloudflare" role="Protection anti-robot (Turnstile)" />
+            {/* Les cartes de l'app chargent leurs fonds depuis OpenStreetMap :
+                consulter une carte transmet donc la zone regardée (et l'adresse
+                IP) à ce tiers. Il manquait ici alors qu'il figure déjà dans la
+                politique affichée dans l'app — c'est cette page-ci que les
+                stores et la CNDP consultent. Constat M7 de l'audit. */}
+            <Sub logo="🗺" color="#7ebc6f" name="OpenStreetMap" role="Fonds de carte (reçoit la zone de carte affichée)" />
           </div>
         </Section>
 
