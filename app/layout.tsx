@@ -17,6 +17,35 @@ export const metadata: Metadata = {
     title: 'PAG MATCH — Padel Active Game',
     description: 'Trouve ta partie, suis ton niveau. L’app des joueurs de padel au Maroc.',
     type: 'website',
+    siteName: 'PAG MATCH',
+    locale: 'fr_MA',
+    /**
+     * LA VIGNETTE DES LIENS PARTAGÉS.
+     *
+     * Sans elle, WhatsApp se rabattait sur la favicon : un timbre-poste de
+     * 256 px à côté du texte. 1200 × 630 est le format que WhatsApp, Facebook
+     * et LinkedIn affichent en GRANDE carte — un carré, même en 1024, reste
+     * une vignette.
+     *
+     * ⚠️ Adresse absolue en `www`, et pas relative : `metadataBase` pointe sur
+     * l'apex, or les liens de partage passent tous par `www` (l'apex est
+     * bloqué chez certains fournisseurs marocains — cf. SHARE_BASE côté app).
+     * Deux domaines pour la même image, c'est une vignette qui marche ici et
+     * pas là.
+     */
+    images: [{
+      url: 'https://www.pagmatch.com/assets/og-pagmatch.png',
+      width: 1200,
+      height: 630,
+      alt: 'PAG MATCH — l’app des joueurs de padel au Maroc',
+    }],
+  },
+  // X/Twitter n'utilise pas Open Graph : sans ce bloc, le lien y reste nu.
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PAG MATCH — Padel Active Game',
+    description: 'Trouve ta partie, suis ton niveau. L’app des joueurs de padel au Maroc.',
+    images: ['https://www.pagmatch.com/assets/og-pagmatch.png'],
   },
 };
 
