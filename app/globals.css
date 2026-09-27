@@ -285,6 +285,7 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
 .sec { padding: 120px 0 110px; position: relative; }
 .sec-alt { padding: 110px 0; background: linear-gradient(180deg, #0c0c0e, var(--ink)); border-top: 1px solid var(--line-2); }
 #score.sec { padding: 110px 0; border-top: 1px solid var(--line-2); }
+.sec-live { padding: 110px 0; background: linear-gradient(180deg, #0c0c0e, var(--ink)); border-top: 1px solid var(--line-2); }
 .rule { height: 1px; background: var(--line-2); margin: 100px 0; }
 
 .split { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,0.95fr); gap: 64px; align-items: center; }

@@ -135,6 +135,7 @@ function Nav() {
         <div className="nav-links">
           <a href="#orga">Fonctionnement</a>
           <a href="#defi">Le défi</a>
+          <a href="#live">Le direct</a>
           <a href="#profil">Ton profil</a>
           <a href="#score">Le score</a>
           <a href="#how">Comment ça marche</a>
@@ -295,7 +296,7 @@ function Profil() {
       <div className="wrap split">
         <div className="reveal">
           <Eyebrow>Ton profil</Eyebrow>
-          <h2 className="welcome">«&nbsp;Il joue à quel niveau, <span className="y">lui&nbsp;?</span>&nbsp;»</h2>
+          <h2 className="welcome">«&nbsp;Il joue à quel niveau, lui&nbsp;? <span className="y">Est-il classé FRMT&nbsp;?</span>&nbsp;»</h2>
           <p className="sec-lede">
             Chaque joueur a un profil public. Son niveau, sa fiabilité, son classement FRMT,
             ses résultats : tu sais avec qui tu joues avant d&apos;entrer sur la piste.
@@ -474,6 +475,55 @@ function Defi() {
   );
 }
 
+/* ---------- 03 bis. LE SCORE EN DIRECT ------------------------------------ */
+
+function Live() {
+  // Ecran dessine d'apres app/live/[sessionId].tsx lu en entier : carte blanche
+  // facon MatchCard (avatars or/noir + prenoms a gauche, grille de sets a
+  // droite, ligne du leader surlignee), « JEU EN COURS » et les deux boutons
+  // de 96 px. Le vide sous les boutons est fidele : l'ecran est une liste
+  // defilante, le contenu tient en haut.
+  //
+  // ⚠️ NE PAS ecrire que les amis ou le club suivent le match : l'objectif
+  // « spectateurs live » a ete ECARTE. Seuls les quatre joueurs voient le score.
+  return (
+    <section className="sec sec-live" id="live">
+      <div className="wrap split">
+        <div className="reveal">
+          <Eyebrow>Le score en direct</Eyebrow>
+          <h2 className="welcome">«&nbsp;C&apos;était 6-4 ou <span className="y">6-3&nbsp;?</span>&nbsp;»</h2>
+          <p className="sec-lede">
+            Un joueur se propose avant de commencer — «&nbsp;Je scorerai ce match&nbsp;» — et le
+            score s&apos;écrit <strong>pendant</strong> qu&apos;on joue. À la fin, il n&apos;y a plus rien à
+            reconstituer de mémoire.
+          </p>
+          <div className="checklist">
+            <div className="check">
+              <Check />
+              <p><strong>Un seul marque, les trois autres suivent.</strong> Le tableau se remplit en direct sur leur téléphone. Pas d&apos;accord&nbsp;? Un appui sur « Contester ce score » — sans interrompre le jeu : celui qui marque voit l&apos;alerte et corrige.</p>
+            </div>
+            <div className="check">
+              <Check />
+              <p><strong>Jeu par jeu, ou point par point.</strong> Par défaut, un appui par jeu — ça tient dans les pauses. En point par point, tu règles aussi le 40-40 : point en or ou avantage.</p>
+            </div>
+            <div className="check">
+              <Check />
+              <p><strong>Personne ne reste bloqué.</strong> Celui qui marque décroche&nbsp;? N&apos;importe qui reprend d&apos;un appui. Personne ne se propose avant le match&nbsp;? On saisit le score à la fin, comme d&apos;habitude.</p>
+            </div>
+            <div className="check">
+              <Check />
+              <p><strong>Ça ne court-circuite rien.</strong> Marqué en direct ou saisi après, le score part en validation chez l&apos;adversaire. Rien ne compte sans son accord.</p>
+            </div>
+          </div>
+        </div>
+        <div className="reveal phone-col" data-delay="90ms">
+          <Phone size="238" src="/screens/live-suivi.png" alt="Suivi du score en direct pendant le match" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- 04. LE SCORE -------------------------------------------------- */
 
 function Score() {
@@ -608,6 +658,7 @@ function Footer() {
             <h4>Produit</h4>
             <a href="#orga">Fonctionnement</a>
             <a href="#defi">Le défi</a>
+            <a href="#live">Le direct</a>
             <a href="#profil">Ton profil</a>
             <a href="#score">Le score</a>
             <a href="#how">Comment ça marche</a>
@@ -642,6 +693,7 @@ export default function Home() {
       <Hero />
       <Orga />
       <Defi />
+      <Live />
       <Profil />
       <Score />
       <How />
