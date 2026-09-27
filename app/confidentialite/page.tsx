@@ -112,7 +112,20 @@ export default function Confidentialite() {
           <ul>
             <li>Modifiez vos informations directement dans l’application.</li>
             <li>Supprimez votre compte depuis les réglages — vos données associées sont effacées ou anonymisées.</li>
-            <li>Exercez vos autres droits en écrivant à <a href={`mailto:${LEGAL.contactEmail}`}>{LEGAL.contactEmail}</a>.</li>
+            {/* Exige par Google Play : la suppression doit rester possible pour qui
+                n'a plus l'application. Sans cette ligne, le seul chemin decrit passe
+                par des reglages devenus inaccessibles. */}
+            {/* Le <span> n'est pas decoratif : `.lsec ul li` est en `display: flex`,
+                donc chaque morceau de texte deviendrait une COLONNE. Enveloppe,
+                la phrase coule normalement. */}
+            <li>
+              <span>
+                Vous avez désinstallé l’application ? Écrivez-nous à{' '}
+                <a href={`mailto:${LEGAL.contactEmail}?subject=Suppression%20de%20mon%20compte`}>{LEGAL.contactEmail}</a>{' '}
+                : nous supprimons votre compte et les données associées, sans avoir à réinstaller.
+              </span>
+            </li>
+            <li><span>Exercez vos autres droits en écrivant à <a href={`mailto:${LEGAL.contactEmail}`}>{LEGAL.contactEmail}</a>.</span></li>
           </ul>
         </Section>
 
