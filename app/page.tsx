@@ -135,9 +135,8 @@ function Nav() {
         <div className="nav-links">
           <a href="#orga">Fonctionnement</a>
           <a href="#defi">Le défi</a>
-          <a href="#live">Le direct</a>
+          <a href="#live">Score en direct</a>
           <a href="#profil">Ton profil</a>
-          <a href="#score">Le score</a>
           <a href="#how">Comment ça marche</a>
         </div>
         <a className="btn btn-brand" href="#download">Télécharger</a>
@@ -658,7 +657,7 @@ function Footer() {
             <h4>Produit</h4>
             <a href="#orga">Fonctionnement</a>
             <a href="#defi">Le défi</a>
-            <a href="#live">Le direct</a>
+            <a href="#live">Score en direct</a>
             <a href="#profil">Ton profil</a>
             <a href="#score">Le score</a>
             <a href="#how">Comment ça marche</a>
