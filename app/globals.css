@@ -283,7 +283,7 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
    SECTIONS — ossature commune
    ============================================================ */
 .sec { padding: 120px 0 110px; position: relative; }
-.sec-alt { padding: 110px 0; background: linear-gradient(180deg, var(--ink), #0c0c0e); border-top: 1px solid var(--line-2); }
+.sec-alt { padding: 110px 0; background: linear-gradient(180deg, #0c0c0e, var(--ink)); border-top: 1px solid var(--line-2); }
 #score.sec { padding: 110px 0; border-top: 1px solid var(--line-2); }
 .rule { height: 1px; background: var(--line-2); margin: 100px 0; }
 
@@ -392,7 +392,7 @@ a.store:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,
   padding: 110px 0; border-top: 1px solid var(--line-2);
   background:
     radial-gradient(900px 420px at 82% 0%, rgba(255,193,26,0.10), transparent 62%),
-    linear-gradient(180deg, #0c0c0e, var(--ink));
+    linear-gradient(180deg, var(--ink), #0c0c0e);
 }
 /* Le tableau « binome VS binome » est un GRAPHIQUE WEB, pas l'imitation d'un
    ecran de l'app : il ne peut donc pas mentir sur son interface. Les trois

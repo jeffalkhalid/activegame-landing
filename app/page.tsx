@@ -134,8 +134,8 @@ function Nav() {
         </a>
         <div className="nav-links">
           <a href="#orga">Fonctionnement</a>
-          <a href="#profil">Ton profil</a>
           <a href="#defi">Le défi</a>
+          <a href="#profil">Ton profil</a>
           <a href="#score">Le score</a>
           <a href="#how">Comment ça marche</a>
         </div>
@@ -607,8 +607,8 @@ function Footer() {
           <div className="foot-col">
             <h4>Produit</h4>
             <a href="#orga">Fonctionnement</a>
-            <a href="#profil">Ton profil</a>
             <a href="#defi">Le défi</a>
+            <a href="#profil">Ton profil</a>
             <a href="#score">Le score</a>
             <a href="#how">Comment ça marche</a>
             <a href="#download">Télécharger</a>
@@ -641,8 +641,8 @@ export default function Home() {
       <Nav />
       <Hero />
       <Orga />
-      <Profil />
       <Defi />
+      <Profil />
       <Score />
       <How />
       <Proofs />
