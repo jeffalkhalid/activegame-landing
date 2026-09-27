@@ -659,7 +659,6 @@ function Footer() {
             <a href="#defi">Le défi</a>
             <a href="#live">Score en direct</a>
             <a href="#profil">Ton profil</a>
-            <a href="#score">Le score</a>
             <a href="#how">Comment ça marche</a>
             <a href="#download">Télécharger</a>
           </div>
