@@ -9,7 +9,14 @@ export const LEGAL = {
   contactEmail: 'support@pagmatch.com',
   supabaseRegion: 'Union européenne (Irlande — eu-west-1)',
   minAge: 18,
+  // Date des CGU. Leur texte n'a pas bouge depuis le 10 juin 2026 : ne pas la
+  // rajeunir sans modifier les conditions, ce serait annoncer une revision qui
+  // n'a pas eu lieu.
   lastUpdate: '10 juin 2026',
+  // La politique de confidentialite evolue SEULE, plus souvent que les CGU
+  // (OpenStreetMap le 26/09, suppression de compte sans l'app le 27/09).
+  // Garder identique a react-matchup/lib/legal.ts.
+  privacyLastUpdate: '27 septembre 2026',
   // URLs des stores (à remplir une fois les apps publiées).
   appStoreUrl: '',
   playStoreUrl: '',

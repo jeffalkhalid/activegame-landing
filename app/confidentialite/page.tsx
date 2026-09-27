@@ -15,6 +15,7 @@ export default function Confidentialite() {
         kicker="Vie privée"
         title="Politique de confidentialité"
         sub="Vos données vous appartiennent. Voici, en clair, ce que nous collectons, pourquoi, et comment vous gardez le contrôle."
+        updated={LEGAL.privacyLastUpdate}
       />
 
       <main className="container legal-body">

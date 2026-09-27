@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import { LEGAL } from '@/lib/legal';
 
-export function LegalHero({ kicker, title, sub }: { kicker: string; title: string; sub: string }) {
+export function LegalHero({ kicker, title, sub, updated }: {
+  kicker: string; title: string; sub: string;
+  /** Chaque page porte SA date : les CGU et la confidentialité ne changent pas ensemble. */
+  updated?: string;
+}) {
   return (
     <header className="legal-hero">
       <div className="container">
@@ -9,7 +13,7 @@ export function LegalHero({ kicker, title, sub }: { kicker: string; title: strin
         <div className="legal-kicker">{kicker}</div>
         <h1>{title}</h1>
         <p className="sub">{sub}</p>
-        <div className="updated-badge"><span className="dot" /> À jour le {LEGAL.lastUpdate}</div>
+        <div className="updated-badge"><span className="dot" /> À jour le {updated ?? LEGAL.lastUpdate}</div>
       </div>
     </header>
   );
