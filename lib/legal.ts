@@ -1,9 +1,9 @@
-// Informations légales centralisées du site PAG MATCH (Padel Active Game).
+// Informations légales centralisées du site PagMatch (Padel Active Game).
 // ⚠️ À COMPLÉTER avant mise en ligne — doit rester cohérent avec
 //    react-matchup/lib/legal.ts (mêmes valeurs).
 export const LEGAL = {
   brand: 'Padel Active Game',
-  appName: 'PAG MATCH',
+  appName: 'PagMatch',
   responsable: 'QUARTZTEC, SARL à associé unique au capital de 100 000 MAD, immatriculée au registre du commerce de Casablanca sous le n° 521941',
   editor: 'QUARTZTEC, SARL à associé unique au capital de 100 000 MAD, immatriculée au registre du commerce de Casablanca sous le n° 521941',
   contactEmail: 'support@pagmatch.com',

@@ -130,7 +130,7 @@ function Nav() {
       <div className="wrap nav-inner">
         <a className="nav-logo" href="#top">
           <img className="racket" src="/assets/auth/splash-racket.png" alt="" />
-          <img className="wm" src="/assets/auth/splash-wordmark.png" alt="PAG MATCH" />
+          <img className="wm" src="/assets/auth/splash-wordmark.png" alt="PagMatch" />
         </a>
         <div className="nav-links">
           <a href="#orga">Fonctionnement</a>
@@ -188,7 +188,7 @@ function Hero() {
         <div className="hero-visual">
           <div className="glow" />
           <div className="hero-float">
-            <Phone size="hero" src="/screens/hero-accueil.png" alt="Accueil PAG MATCH : prochain match et parties suggérées" />
+            <Phone size="hero" src="/screens/hero-accueil.png" alt="Accueil PagMatch : prochain match et parties suggérées" />
           </div>
         </div>
       </div>
@@ -632,7 +632,7 @@ function CtaBand() {
       <div className="wrap cta-inner reveal">
         <div className="pill"><span className="dot" /><span>Gratuit · iOS &amp; Android</span></div>
         <h2 className="welcome">Ton 4<sup>e</sup> joueur <span className="y">est dans l&apos;app.</span></h2>
-        <p>Télécharge PAG MATCH, trouve ta partie et fais bouger ton niveau dès ce week-end.</p>
+        <p>Télécharge PagMatch, trouve ta partie et fais bouger ton niveau dès ce week-end.</p>
         <StoreBadges center />
       </div>
     </section>
@@ -649,7 +649,7 @@ function Footer() {
           <div className="footer-brand">
             <a className="footer-logo" href="#top">
               <img className="racket" src="/assets/auth/splash-racket.png" alt="" />
-              <img className="wm" src="/assets/auth/splash-wordmark.png" alt="PAG MATCH" />
+              <img className="wm" src="/assets/auth/splash-wordmark.png" alt="PagMatch" />
             </a>
             <p>L&apos;app des joueurs de padel au Maroc. By {LEGAL.brand.toUpperCase().replace(/\s/g, '')}.</p>
           </div>
@@ -675,7 +675,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} PAG MATCH — by {LEGAL.brand.toUpperCase().replace(/\s/g, '')}. Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} PagMatch — by {LEGAL.brand.toUpperCase().replace(/\s/g, '')}. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

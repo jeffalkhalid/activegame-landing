@@ -4,8 +4,8 @@ import { LEGAL } from '@/lib/legal';
 import { LegalHero, Section, Sub, Callout } from '../legal-ui';
 
 export const metadata: Metadata = {
-  title: 'Politique de confidentialité — PAG MATCH',
-  description: 'Comment PAG MATCH (Padel Active Game) collecte, utilise et protège vos données personnelles.',
+  title: 'Politique de confidentialité — PagMatch',
+  description: 'Comment PagMatch (Padel Active Game) collecte, utilise et protège vos données personnelles.',
 };
 
 export default function Confidentialite() {
