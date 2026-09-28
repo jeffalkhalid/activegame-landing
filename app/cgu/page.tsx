@@ -4,8 +4,8 @@ import { LEGAL } from '@/lib/legal';
 import { LegalHero, Section, Callout } from '../legal-ui';
 
 export const metadata: Metadata = {
-  title: 'Conditions d’utilisation — PagMatch',
-  description: 'Conditions Générales d’Utilisation de l’application PagMatch (Padel Active Game).',
+  title: 'Conditions d’utilisation — Pagmatch',
+  description: 'Conditions Générales d’Utilisation de l’application Pagmatch (Padel Active Game).',
 };
 
 export default function Cgu() {

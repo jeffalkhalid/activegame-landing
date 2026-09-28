@@ -33,25 +33,25 @@ function contextLabel(p: string | null): Ctx {
     case 'game':
       return {
         title: 'Tu es invité à une partie',
-        sub: 'Ouvre PagMatch pour voir la partie et rejoindre les joueurs.',
+        sub: 'Ouvre Pagmatch pour voir la partie et rejoindre les joueurs.',
       };
     case 'tournament':
       return {
         title: 'Tu es invité à un tournoi',
-        sub: 'Ouvre PagMatch pour voir le tournoi et t’inscrire avec ton binôme.',
+        sub: 'Ouvre Pagmatch pour voir le tournoi et t’inscrire avec ton binôme.',
       };
     case 'player':
       return {
         title: 'Découvre ce profil joueur',
-        sub: 'Ouvre PagMatch pour voir la fiche, le niveau et les statistiques.',
+        sub: 'Ouvre Pagmatch pour voir la fiche, le niveau et les statistiques.',
       };
     case 'invite':
       return {
-        title: 'Rejoins la communauté PagMatch',
+        title: 'Rejoins la communauté Pagmatch',
         sub: 'Un ami t’invite à jouer au padel et à grimper au classement.',
       };
     default:
-      return { title: 'Ouvrir PagMatch', sub: 'Le padel, niveau supérieur.' };
+      return { title: 'Ouvrir Pagmatch', sub: 'Le padel, niveau supérieur.' };
   }
 }
 
@@ -136,7 +136,7 @@ export default function OpenGate() {
       }}
     >
       <span className="kicker" style={{ color: 'var(--brand)' }}>
-        PagMatch
+        Pagmatch
       </span>
 
       <h1 style={{ fontSize: 'clamp(28px, 6vw, 40px)', lineHeight: 1.1, margin: 0 }}>
@@ -187,7 +187,7 @@ export default function OpenGate() {
 
       <div style={{ marginTop: 16, display: 'flex', gap: 18, flexWrap: 'wrap', justifyContent: 'center' }}>
         <Link href="/" style={{ color: 'var(--text-dim)', fontSize: 13 }}>
-          Découvrir PagMatch
+          Découvrir Pagmatch
         </Link>
         <Link href="/confidentialite" style={{ color: 'var(--text-dim)', fontSize: 13 }}>
           Confidentialité
