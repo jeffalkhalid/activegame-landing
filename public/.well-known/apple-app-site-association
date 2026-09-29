@@ -20,14 +20,11 @@
             "comment": "lien de parrainage"
           },
           {
-            "/": "/open",
+            "/": "/open*",
             "comment": "passerelle de partage"
           },
           {
-            "/": "/open/*"
-          },
-          {
-            "/": "/reset-password",
+            "/": "/reset-password*",
             "comment": "reinitialisation du mot de passe"
           }
         ]
