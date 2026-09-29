@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { LEGAL } from '@/lib/legal';
 
 // ─────────────────────────────────────────────────────────────────────────
 // Page de secours de la réinitialisation du mot de passe.
@@ -35,7 +34,6 @@ export default function ResetPasswordGate() {
     setJeton(q.get('token_hash') ?? q.get('code'));
   }, []);
 
-  const hasApk = Boolean(LEGAL.apkUrl);
 
   return (
     <main
@@ -82,11 +80,11 @@ export default function ResetPasswordGate() {
         </p>
       )}
 
-      {hasApk && (
-        <a className="btn" href={LEGAL.apkUrl} style={{ marginTop: 4 }}>
-          Télécharger l'application
-        </a>
-      )}
+      {/* Vers l'accueil, où vivent les deux badges de magasin — pas vers un
+          fichier APK, qui datait de trois mois et s'installait en silence. */}
+      <Link className="btn" href="/" style={{ marginTop: 4 }}>
+        Je n&apos;ai pas encore l&apos;application
+      </Link>
 
       <p style={{ color: 'var(--muted-2)', fontSize: 13, maxWidth: 400, lineHeight: 1.6 }}>
         Ce lien ne sert qu'une fois et expire au bout d'une heure. S'il ne

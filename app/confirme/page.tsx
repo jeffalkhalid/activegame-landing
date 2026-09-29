@@ -57,7 +57,6 @@ export default function ConfirmeEmail() {
     })();
   }, []);
 
-  const hasApk = Boolean(LEGAL.apkUrl);
 
   return (
     <main
@@ -92,10 +91,12 @@ export default function ConfirmeEmail() {
         </a>
       )}
 
-      {etat !== 'verification' && hasApk && (
-        <a className="btn" href={LEGAL.apkUrl} style={{ marginTop: 4 }}>
+      {/* Vers l'accueil, ou vivent les deux badges de magasin : pas vers un
+          fichier APK qui datait de trois mois. */}
+      {etat !== 'verification' && (
+        <Link className="btn" href="/" style={{ marginTop: 4 }}>
           Je n&apos;ai pas encore l&apos;application
-        </a>
+        </Link>
       )}
 
       <div style={{ marginTop: 16, display: 'flex', gap: 18, flexWrap: 'wrap', justifyContent: 'center' }}>

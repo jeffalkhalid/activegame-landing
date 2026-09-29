@@ -117,7 +117,7 @@ export default function OpenGate() {
     window.location.href = intentUrl;
   }, []);
 
-  const hasApk = Boolean(LEGAL.apkUrl);
+  const hasPlay = Boolean(LEGAL.playStoreUrl);
   const hasStore = Boolean(LEGAL.appStoreUrl);
 
   return (
@@ -162,17 +162,17 @@ export default function OpenGate() {
 
       <a
         className={estIOS && chemin ? 'btn' : 'btn btn-brand'}
-        href={estIOS ? (hasStore ? LEGAL.appStoreUrl : undefined) : (hasApk ? LEGAL.apkUrl : undefined)}
-        aria-disabled={estIOS ? !hasStore : !hasApk}
+        href={estIOS ? (hasStore ? LEGAL.appStoreUrl : undefined) : (hasPlay ? LEGAL.playStoreUrl : undefined)}
+        aria-disabled={estIOS ? !hasStore : !hasPlay}
         style={{
           marginTop: 8,
-          opacity: (estIOS ? hasStore : hasApk) ? 1 : 0.5,
-          pointerEvents: (estIOS ? hasStore : hasApk) ? 'auto' : 'none',
+          opacity: (estIOS ? hasStore : hasPlay) ? 1 : 0.5,
+          pointerEvents: (estIOS ? hasStore : hasPlay) ? 'auto' : 'none',
         }}
       >
         {estIOS
           ? (hasStore ? 'Télécharger sur l’App Store' : 'Bientôt sur l’App Store')
-          : (hasApk ? 'Télécharger l’app (Android)' : 'Bientôt disponible')}
+          : (hasPlay ? 'Télécharger sur Google Play' : 'Bientôt sur Google Play')}
       </a>
 
       <p style={{ color: 'var(--muted-2)', fontSize: 13, maxWidth: 380, lineHeight: 1.6 }}>

@@ -24,5 +24,10 @@ export const LEGAL = {
   // limite 2 Go vs 50 Mo sur Supabase free ; URL constante d'une version à
   // l'autre — réuploader l'asset sur la même release). Cible du bouton
   // « Télécharger » de la page passerelle /open quand l'app n'est pas installée.
-  apkUrl: 'https://github.com/jeffalkhalid/activegame-landing/releases/download/apk/pagmatch.apk',
+  // 🔴 Vide DEPUIS LE 2026-09-29, et c'est voulu. L'APK servi ici datait du
+  // 10 juin : quelqu'un qui le telechargeait installait une version de trois
+  // mois, sans rien pour lui dire. Tant que l'app n'est pas publiee sur les
+  // magasins, on renvoie vers l'accueil du site plutot que vers un fichier
+  // perime. Remplir appStoreUrl / playStoreUrl le jour de la publication.
+  apkUrl: '',
 } as const;
