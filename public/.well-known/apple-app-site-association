@@ -1,0 +1,37 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "CAZ3VGG9SU.com.pagmatch.app"
+        ],
+        "components": [
+          {
+            "/": "/g/*",
+            "comment": "lien court d'une partie"
+          },
+          {
+            "/": "/p/*",
+            "comment": "lien court d'un profil"
+          },
+          {
+            "/": "/u/*",
+            "comment": "lien de parrainage"
+          },
+          {
+            "/": "/open",
+            "comment": "passerelle de partage"
+          },
+          {
+            "/": "/open/*"
+          },
+          {
+            "/": "/reset-password",
+            "comment": "reinitialisation du mot de passe"
+          }
+        ]
+      }
+    ]
+  }
+}
