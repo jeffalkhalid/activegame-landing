@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.pagmatch.app",
+      "sha256_cert_fingerprints": ["7C:E6:33:BF:AC:70:4F:21:0A:77:84:B1:BB:4A:FA:AA:8C:52:FA:AC:43:5F:B3:9F:24:5B:2D:56:EC:EE:C3:2E"]
+    }
+  }
+]
