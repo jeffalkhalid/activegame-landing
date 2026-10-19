@@ -10,7 +10,7 @@ import { LEGAL } from '@/lib/legal';
 // Tous les liens partagés de l'app (parties, profils, parrainage) pointent ici
 // via lib/community.ts → SHARE_BASE/open/?p=...  Le but :
 //   • App installée  → on ouvre l'app sur le bon écran (scheme pagmatch://).
-//   • Pas installée   → on retombe sur cette page = landing + bouton APK.
+//   • Pas installée   → on retombe sur cette page = landing + badge Google Play.
 //
 // Mécanisme Android : on redirige vers une URL `intent://…` qui embarque une
 // `browser_fallback_url`. Si l'app gère le scheme `pagmatch`, Android l'ouvre ;
@@ -160,29 +160,26 @@ export default function OpenGate() {
         </a>
       )}
 
-      <a
-        className={estIOS && chemin ? 'btn' : 'btn btn-brand'}
-        href={estIOS ? (hasStore ? LEGAL.appStoreUrl : undefined) : (hasPlay ? LEGAL.playStoreUrl : undefined)}
-        aria-disabled={estIOS ? !hasStore : !hasPlay}
-        style={{
-          marginTop: 8,
-          opacity: (estIOS ? hasStore : hasPlay) ? 1 : 0.5,
-          pointerEvents: (estIOS ? hasStore : hasPlay) ? 'auto' : 'none',
-        }}
-      >
-        {estIOS
-          ? (hasStore ? 'Télécharger sur l’App Store' : 'Bientôt sur l’App Store')
-          : (hasPlay ? 'Télécharger sur Google Play' : 'Bientôt sur Google Play')}
-      </a>
+      {/* Badge OFFICIEL du store de l'appareil (mêmes fichiers que l'accueil).
+          Sans URL : le badge s'affiche, éteint, sans lien. */}
+      {(() => {
+        const url = estIOS ? LEGAL.appStoreUrl : LEGAL.playStoreUrl;
+        const img = estIOS
+          ? <img src="/badges/app-store-fr.svg" alt="Télécharger dans l’App Store" width={126.5} height={40} style={{ height: 52, width: 'auto', display: 'block' }} />
+          : <img src="/badges/google-play-fr.png" alt="Disponible sur Google Play" width={646} height={190} style={{ height: 52, width: 'auto', display: 'block' }} />;
+        return url
+          ? <a href={url} style={{ marginTop: 8 }}>{img}</a>
+          : <span aria-disabled="true" style={{ marginTop: 8, opacity: 0.5 }}>{img}</span>;
+      })()}
 
       <p style={{ color: 'var(--muted-2)', fontSize: 13, maxWidth: 380, lineHeight: 1.6 }}>
         {estIOS
           ? (chemin
               ? 'Si rien ne s’ouvre, c’est que l’app n’est pas installée sur cet iPhone.'
-              : 'L’app iPhone arrive bientôt. En attendant, elle est disponible sur Android.')
+              : (hasStore ? 'Pagmatch est disponible sur iPhone et sur Android.' : 'Pagmatch arrive très bientôt sur l’App Store.'))
           : triedApp
             ? 'Rien ne s’est passé ? L’app n’est pas encore installée — télécharge-la ci-dessus.'
-            : 'Application Android. Après le téléchargement, autorise l’installation depuis cette source pour ouvrir le fichier.'}
+            : (hasPlay ? 'Pagmatch est disponible sur Google Play.' : 'Pagmatch arrive très bientôt sur Google Play.')}
       </p>
 
       <div style={{ marginTop: 16, display: 'flex', gap: 18, flexWrap: 'wrap', justifyContent: 'center' }}>

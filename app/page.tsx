@@ -15,40 +15,34 @@ import HeroVideo from './HeroVideo';
    des joueurs qui ne les trouveraient pas.
    ========================================================================= */
 
-/* ---------- Badges stores (état « bientôt » tant que l'URL est vide) ------- */
+/* ---------- Badges stores (état « bientôt » tant que l'URL est vide) -------
+   Les badges OFFICIELS d'Apple et de Google, en français, tels que fournis
+   (Apple : toolbox.marketingtools.apple.com ; Google : badge web générique,
+   seule la marge transparente haut/bas a été rognée pour aligner les hauteurs).
+   Ne pas les redessiner ni les recolorer : leurs chartes l'interdisent. */
 
-const AppleGlyph = (
-  <svg viewBox="0 0 24 24" fill="#0A0A0A" aria-hidden="true"><path d="M16.5 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM20 17.2c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.1-3.8 3.1-1.4 0-1.8-.9-3.7-.9s-2.4.9-3.7.9c-1.6 0-2.8-1.6-3.7-2.9C1.2 16.4.9 11.8 2.5 9.4c1.1-1.7 2.9-2.7 4.5-2.7 1.7 0 2.7 1 4.1 1 1.3 0 2.1-1 4.1-1 1.5 0 3 .8 4.1 2.2-3.6 2-3 7.1.2 8.3z" /></svg>
-);
+const BADGES = {
+  apple: { src: '/badges/app-store-fr.svg', alt: 'Télécharger dans l’App Store', w: 126.5, h: 40 },
+  google: { src: '/badges/google-play-fr.png', alt: 'Disponible sur Google Play', w: 646, h: 190 },
+} as const;
 
-const PlayGlyph = (
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D3FF" d="M3.7 2.3 13.8 12H3.7z" /><path fill="#00F076" d="M3.7 21.7 13.8 12H3.7z" /><path fill="#FF3945" d="M3.7 2.3 20 12h-6.2z" /><path fill="#FFCE00" d="M3.7 21.7 20 12h-6.2z" /></svg>
-);
-
-function StoreBadge({ href, small, big, glyph }: {
-  href: string; small: string; big: string; glyph: React.ReactNode;
-}) {
+function StoreBadge({ href, store }: { href: string; store: keyof typeof BADGES }) {
+  const b = BADGES[store];
+  const img = <img className={`store-img ${store}`} src={b.src} alt={b.alt} width={b.w} height={b.h} />;
   // URL vide = app pas encore publiée : le badge existe, mais il n'est pas un
   // lien. Un <a href=""> rechargerait la page ; un <button> désactivé
   // ressemblerait à une panne.
   if (!href) {
     return (
-      <span className="store soon" aria-label={`${big} — bientôt disponible`}>
-        {glyph}
-        <span className="st-txt">
-          <span className="st-soon"><span className="st-dot" />Bientôt disponible</span>
-          <span className="st-big">{big}</span>
-        </span>
+      <span className="store soon" aria-label={`${b.alt} — bientôt disponible`}>
+        {img}
+        <span className="st-soon"><span className="st-dot" />Bientôt disponible</span>
       </span>
     );
   }
   return (
-    <a className="store" href={href} target="_blank" rel="noopener noreferrer" aria-label={`${small} ${big}`}>
-      {glyph}
-      <span className="st-txt">
-        <span className="st-small">{small}</span>
-        <span className="st-big">{big}</span>
-      </span>
+    <a className="store" href={href} target="_blank" rel="noopener noreferrer">
+      {img}
     </a>
   );
 }
@@ -56,8 +50,8 @@ function StoreBadge({ href, small, big, glyph }: {
 function StoreBadges({ center = false }: { center?: boolean }) {
   return (
     <div className={`stores${center ? ' center' : ''}`}>
-      <StoreBadge href={LEGAL.appStoreUrl} small="Télécharger sur" big="App Store" glyph={AppleGlyph} />
-      <StoreBadge href={LEGAL.playStoreUrl} small="Disponible sur" big="Google Play" glyph={PlayGlyph} />
+      <StoreBadge href={LEGAL.appStoreUrl} store="apple" />
+      <StoreBadge href={LEGAL.playStoreUrl} store="google" />
     </div>
   );
 }
@@ -226,7 +220,7 @@ function Orga() {
           </div>
         </div>
         <div className="reveal phone-col" data-delay="90ms">
-          <Phone size="238" src="/screens/1a-partie-ouverte.png" alt="Partie ouverte : niveau demandé et joueurs inscrits" />
+          <Phone size="238" src="/screens/1a-partie-ouverte.png" alt="Lobby : tes parties, le niveau demandé et les joueurs inscrits" />
         </div>
       </div>
 
@@ -316,7 +310,7 @@ function Profil() {
           </div>
         </div>
         <div className="reveal phone-col" data-delay="90ms">
-          <Phone size="238" src="/screens/1b-fiche-joueur.png" alt="Fiche joueur : niveau, fiabilité, classement FRMT" />
+          <Phone size="238" src="/screens/1b-fiche-joueur.png" alt="Profil : niveau, fiabilité du score et courbe de progression" />
         </div>
       </div>
 
