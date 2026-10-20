@@ -678,9 +678,28 @@ function Footer() {
 
 /* ---------- PAGE ---------------------------------------------------------- */
 
+// Fiche « application » lisible par Google (données structurées schema.org).
+// Les liens de téléchargement suivent LEGAL : un store sans URL n'y figure pas.
+const APP_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'MobileApplication',
+  name: LEGAL.appName,
+  description: 'L’app des joueurs de padel au Maroc : trouve des joueurs à ton niveau, crée ta partie, saisis ton score, suis ton niveau.',
+  url: 'https://www.pagmatch.com/',
+  applicationCategory: 'SportsApplication',
+  operatingSystem: 'Android, iOS',
+  inLanguage: 'fr',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'MAD' },
+  publisher: { '@type': 'Organization', name: 'QUARTZTEC' },
+  ...(([LEGAL.playStoreUrl, LEGAL.appStoreUrl].filter(Boolean)).length
+    ? { downloadUrl: [LEGAL.playStoreUrl, LEGAL.appStoreUrl].filter(Boolean) }
+    : {}),
+};
+
 export default function Home() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(APP_JSONLD) }} />
       <Nav />
       <Hero />
       <Orga />

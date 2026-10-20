@@ -11,7 +11,12 @@ export const metadata: Metadata = {
   title: 'Pagmatch — Padel Active Game · Trouve ta partie, suis ton niveau',
   description:
     'Trouve des joueurs vraiment à ton niveau — calculé sur tes matchs, pas déclaré. Crée ta partie, saisis ton score, regarde ton niveau bouger. L’app des joueurs de padel au Maroc.',
-  metadataBase: new URL('https://pagmatch.com'),
+  // `www` : c'est l'adresse servie (l'apex redirige en 308 vers www). Une
+  // adresse canonique sur l'apex désignerait à Google une page qui redirige.
+  metadataBase: new URL('https://www.pagmatch.com'),
+  // './' se résout PAGE PAR PAGE (accueil, /cgu/, /confidentialite/…) : un
+  // canonique fixe ici ferait passer toutes les pages pour l'accueil.
+  alternates: { canonical: './' },
   icons: { icon: '/assets/favicon.png' },
   openGraph: {
     title: 'Pagmatch — Padel Active Game',
@@ -27,11 +32,10 @@ export const metadata: Metadata = {
      * et LinkedIn affichent en GRANDE carte — un carré, même en 1024, reste
      * une vignette.
      *
-     * ⚠️ Adresse absolue en `www`, et pas relative : `metadataBase` pointe sur
-     * l'apex, or les liens de partage passent tous par `www` (l'apex est
-     * bloqué chez certains fournisseurs marocains — cf. SHARE_BASE côté app).
-     * Deux domaines pour la même image, c'est une vignette qui marche ici et
-     * pas là.
+     * ⚠️ Adresse absolue en `www` : les liens de partage passent tous par
+     * `www` (l'apex est bloqué chez certains fournisseurs marocains — cf.
+     * SHARE_BASE côté app). Deux domaines pour la même image, c'est une
+     * vignette qui marche ici et pas là.
      */
     images: [{
       url: 'https://www.pagmatch.com/assets/og-pagmatch.png',
