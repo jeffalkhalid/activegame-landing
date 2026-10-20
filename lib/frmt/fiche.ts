@@ -1,29 +1,5 @@
-// Présentation du classement FRMT : liens entre fiches et formats.
-import type { JoueurMatch } from './types';
-
-const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim().toUpperCase();
-
-/**
- * Index « NOM DE FAMILLE|INITIALE|CLUB » → slug, pour relier partenaires et
- * adversaires (la FRMT les écrit « NOM.I (CLUB) ») à leur fiche. Le nom de
- * famille peut compter plusieurs mots : on indexe chaque découpe possible.
- * Une clé portée par deux joueurs vaut null : pas de lien plutôt qu'un faux.
- */
-export function indexJoueurs(fiches: Array<{ slug: string; nom: string; club: string | null }>): Map<string, string | null> {
-  const idx = new Map<string, string | null>();
-  for (const f of fiches) {
-    const mots = norm(f.nom).split(' ');
-    for (let k = 1; k < mots.length; k++) {
-      const cle = `${mots.slice(0, k).join(' ')}|${mots[k][0]}|${norm(f.club ?? '')}`;
-      idx.set(cle, idx.has(cle) && idx.get(cle) !== f.slug ? null : f.slug);
-    }
-  }
-  return idx;
-}
-
-export function lienJoueur(j: JoueurMatch, idx: Map<string, string | null>): string | null {
-  return idx.get(`${norm(j.nom)}|${norm(j.initiale)}|${norm(j.club ?? '')}`) ?? null;
-}
+// Présentation du classement FRMT : formats.
+// (Les liens entre fiches sont résolus au scrape : JoueurMatch.slug.)
 
 /** "2026-07-04" → "04/07/2026". */
 export function dateFR(iso: string | null): string {

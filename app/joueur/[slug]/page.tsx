@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { chargerEdition } from '@/lib/frmt/data';
-import { dateFR, evolutionTexte, indexJoueurs, libellesVides, lienJoueur, nombre } from '@/lib/frmt/fiche';
+import { chargerEditionMemo, jsonLd } from '@/lib/frmt/data';
+import { dateFR, evolutionTexte, libellesVides, nombre } from '@/lib/frmt/fiche';
 import type { FicheJoueur, JoueurMatch } from '@/lib/frmt/types';
 import { AppelApp, EnteteFrmt, PiedFrmt } from '../../classement/CadreFrmt';
 import Courbe from './Courbe';
@@ -12,7 +12,7 @@ export const dynamicParams = false;
 const ATTENTE = 'bientot';
 
 async function donnees() {
-  const e = await chargerEdition();
+  const e = await chargerEditionMemo();
   return { e, fiches: new Map((e?.fiches ?? []).map((f) => [f.slug, f])) };
 }
 
@@ -37,10 +37,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-function Joueur({ j, idx }: { j: JoueurMatch; idx: Map<string, string | null> }) {
-  const slug = lienJoueur(j, idx);
+// Lien seulement si le scraper a relié ce partenaire/adversaire à UN classé
+// qui a une fiche (ni retiré, ni homonyme ambigu).
+function Joueur({ j }: { j: JoueurMatch }) {
   const t = `${titre(j.nom)} ${j.initiale}.`;
-  return slug ? <Link href={`/joueur/${slug}/`}>{t}</Link> : <span>{t}</span>;
+  return j.slug ? <Link href={`/joueur/${j.slug}/`}>{t}</Link> : <span>{t}</span>;
 }
 
 function Calcul({ f }: { f: FicheJoueur }) {
@@ -80,7 +81,6 @@ export default async function PageJoueur({ params }: { params: Promise<{ slug: s
     );
   }
 
-  const idx = indexJoueurs(e?.fiches ?? []);
   const vides = libellesVides(f);
   const evo = evolutionTexte(f.evolutionRang);
   const personne = {
@@ -90,7 +90,7 @@ export default async function PageJoueur({ params }: { params: Promise<{ slug: s
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personne) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(personne) }} />
       <EnteteFrmt />
       <main className="frmt-wrap frmt-page">
         <Link className="frmt-retour" href={`/classement/${f.genre}/`}>← Classement {GENRE[f.genre]}</Link>
@@ -127,8 +127,8 @@ export default async function PageJoueur({ params }: { params: Promise<{ slug: s
                 <span className={`res ${m.resultat === 'V' ? 'w' : 'lo'}`}>{m.resultat}</span>
               </div>
               <div className="l">
-                {m.partenaire && <>avec <Joueur j={m.partenaire} idx={idx} /> </>}
-                contre {m.adversaires.map((a, k) => <span key={k}>{k > 0 && ' / '}<Joueur j={a} idx={idx} /></span>)}
+                {m.partenaire && <>avec <Joueur j={m.partenaire} /> </>}
+                contre {m.adversaires.map((a, k) => <span key={k}>{k > 0 && ' / '}<Joueur j={a} /></span>)}
                 {m.score && <> · {m.score}</>}
               </div>
             </div>

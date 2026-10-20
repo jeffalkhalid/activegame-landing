@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { chargerEdition, evolution } from './data';
+import { chargerEdition, chargerEditionMemo, evolution, jsonLd } from './data';
 
 process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://exemple.supabase.co';
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'cle-anon-de-test';
@@ -12,12 +12,12 @@ type Ligne = Record<string, unknown>;
 
 /** Fausse API PostgREST : sert des tables en mémoire, honore l'en-tête Range. */
 function fausseBase(tables: Record<string, Ligne[]>) {
-  const appels: Array<{ table: string; range: string | null }> = [];
+  const appels: Array<{ table: string; range: string | null; order: string | null }> = [];
   const fetchImpl = (async (url: string | URL, init?: RequestInit) => {
     const u = new URL(String(url));
     const table = u.pathname.split('/').pop() as string;
     const range = new Headers(init?.headers).get('Range');
-    appels.push({ table, range });
+    appels.push({ table, range, order: u.searchParams.get('order') });
     let lignes = tables[table] ?? [];
     for (const [k, v] of u.searchParams) {
       const m = v.match(/^(eq|in)\.(.*)$/);
@@ -25,7 +25,7 @@ function fausseBase(tables: Record<string, Ligne[]>) {
       const valeurs = m[1] === 'in' ? m[2].replace(/^\(|\)$/g, '').split(',') : [m[2]];
       lignes = lignes.filter((l) => valeurs.includes(String(l[k])));
     }
-    if (u.searchParams.get('order')?.startsWith('published_at.desc')) lignes = [...lignes].sort((a, b) => String(b.published_at).localeCompare(String(a.published_at)));
+    if (u.searchParams.get('order')?.startsWith('started_at.desc')) lignes = [...lignes].sort((a, b) => String(b.started_at).localeCompare(String(a.started_at)));
     if (u.searchParams.get('limit')) lignes = lignes.slice(0, Number(u.searchParams.get('limit')));
     if (range) { const [a, b] = range.split('-').map(Number); lignes = lignes.slice(a, b + 1); }
     return new Response(JSON.stringify(lignes), { status: 200, headers: { 'Content-Type': 'application/json' } });
@@ -35,21 +35,27 @@ function fausseBase(tables: Record<string, Ligne[]>) {
 
 const ED = 'ed-2';
 const base = (n: number, opts: { exclus?: string[]; ambigus?: string[] } = {}) => {
-  const joueurs = Array.from({ length: n }, (_, i) => ({ id: `j${i}`, nom_affiche: `JOUEUR ${i}`, annee: 1990, categorie: i % 5 === 0 ? 'Féminin' : 'Masculin', slug: `joueur-${i}-1990` }));
+  const exclus = opts.exclus ?? [];
+  // Vue publique : un retiré n'a ni nom, ni année, ni slug — seulement masque = true.
+  const joueurs = Array.from({ length: n }, (_, i) => exclus.includes(`j${i}`)
+    ? { id: `j${i}`, nom_affiche: null, annee: null, categorie: i % 5 === 0 ? 'Féminin' : 'Masculin', slug: null, masque: true }
+    : { id: `j${i}`, nom_affiche: `JOUEUR ${i}`, annee: 1990, categorie: i % 5 === 0 ? 'Féminin' : 'Masculin', slug: `joueur-${i}-1990`, masque: false });
   const classements = joueurs.map((j, i) => ({
     edition_id: ED, joueur_id: j.id, rang: i + 1, points: 10000 - i, club: 'IND', ambigu: (opts.ambigus ?? []).includes(j.id),
     palmares_edition_id: i < 3 ? ED : null, classement_palmares: i + 1, matchs_joues: i < 3 ? 1 : null, matchs_gagnes: i < 3 ? 1 : null, matchs_perdus: i < 3 ? 0 : null,
   }));
   return {
     frmt_editions: [
-      { id: ED, status: 'publiee', published_at: '2026-10-19T02:00:00Z' },
-      { id: 'ed-1', status: 'retiree', published_at: '2026-10-12T02:00:00Z' },
+      { id: ED, status: 'publiee', started_at: '2026-10-19T01:00:00Z', published_at: '2026-10-19T03:00:00Z' },
+      { id: 'ed-1', status: 'retiree', started_at: '2026-10-12T01:00:00Z', published_at: '2026-10-12T03:00:00Z' },
     ],
-    frmt_joueurs: joueurs,
+    frmt_joueurs_publics: joueurs,
     frmt_classements: [...classements, { edition_id: 'ed-1', joueur_id: 'j1', rang: 3, points: 9100 }],
-    frmt_exclusions: (opts.exclus ?? []).map((joueur_id) => ({ joueur_id })),
     frmt_resultats: [{ edition_id: ED, joueur_id: 'j0', ordre: 0, date: '2026-10-04', tournoi: 'OPEN', points: 1000, categorie: 'P1000', compte: true }],
-    frmt_matchs: [{ edition_id: ED, joueur_id: 'j0', ordre: 0, date: '2026-10-04', tournoi: 'OPEN', phase: 'Final P1000', tour: 'Finale', partenaire: { nom: 'JOUEUR', initiale: '2', club: 'IND' }, adversaires: [], score: '64 63', resultat: 'V' }],
+    frmt_matchs: [{ edition_id: ED, joueur_id: 'j0', ordre: 0, date: '2026-10-04', tournoi: 'OPEN', phase: 'Final P1000', tour: 'Finale',
+      partenaire: { nom: 'JOUEUR', initiale: '2', club: 'IND', joueur_id: 'j2' },
+      adversaires: [{ nom: 'JOUEUR', initiale: '4', club: 'IND', joueur_id: 'j4' }, { nom: 'INCONNU', initiale: 'X', club: 'IND' }],
+      score: '64 63', resultat: 'V' }],
   };
 };
 
@@ -68,14 +74,54 @@ test('pagination par 1 000 : 2 300 classements → plages 0-999, 1000-1999, 2000
   assert.equal(e.classements.hommes.length + e.classements.femmes.length, 2300);
 });
 
-test('cache présent pour l édition publiée → un seul appel réseau', async () => {
+test('cache présent : seulement l édition publiée et la liste (courte) des retraits', async () => {
   const dir = cacheVide();
   const { fetchImpl } = fausseBase(base(20));
   await chargerEdition({ fetchImpl, cacheDir: dir });
   const deux = fausseBase(base(20));
   await chargerEdition({ fetchImpl: deux.fetchImpl, cacheDir: dir });
-  assert.equal(deux.appels.length, 1);
-  assert.equal(deux.appels[0].table, 'frmt_editions');
+  assert.deepEqual(deux.appels.map((a) => a.table), ['frmt_editions', 'frmt_joueurs_publics']);
+});
+
+test('I4 : un retrait ajouté APRÈS la mise en cache s applique au build suivant', async () => {
+  const dir = cacheVide();
+  await chargerEdition({ fetchImpl: fausseBase(base(20)).fetchImpl, cacheDir: dir });
+  const e = await chargerEdition({ fetchImpl: fausseBase(base(20, { exclus: ['j3'] })).fetchImpl, cacheDir: dir });
+  assert.equal(e?.fiches.some((f) => f.slug === 'joueur-3-1990'), false);
+  const ligne = e?.classements.hommes.find((l) => l.rang === 4);
+  assert.deepEqual([ligne?.nom, ligne?.slug, ligne?.club, ligne?.masque], ['Joueur masqué', null, null, true]);
+});
+
+test('I1 : historique trié sur edition_id PUIS joueur_id (pagination stable)', async () => {
+  const { fetchImpl, appels } = fausseBase(base(20));
+  await chargerEdition({ fetchImpl, cacheDir: cacheVide() });
+  const hist = appels.filter((a) => a.table === 'frmt_classements' && a.order !== 'joueur_id');
+  assert.ok(hist.length > 0);
+  assert.ok(hist.every((a) => a.order === 'edition_id,joueur_id'));
+});
+
+test('M2 : date affichée = date des données (started_at), pas de republication', async () => {
+  const e = await chargerEdition({ fetchImpl: fausseBase(base(20)).fetchImpl, cacheDir: cacheVide() });
+  assert.equal(e?.edition.date, '2026-10-19T01:00:00Z');
+});
+
+test('I9 : liens des matchs par identifiant ; vers un retiré ou un inconnu, pas de lien', async () => {
+  const e = await chargerEdition({ fetchImpl: fausseBase(base(20, { exclus: ['j4'] })).fetchImpl, cacheDir: cacheVide() });
+  const m = e?.fiches.find((f) => f.slug === 'joueur-0-1990')?.matchs[0];
+  assert.equal(m?.partenaire?.slug, 'joueur-2-1990');
+  assert.equal(m?.adversaires[0].slug ?? null, null);
+  assert.equal(m?.adversaires[1].slug ?? null, null);
+});
+
+test('I7 : mémoïsation — un seul chargement par processus de build', async () => {
+  const { fetchImpl, appels } = fausseBase(base(20));
+  const opts = { fetchImpl, cacheDir: cacheVide() };
+  await Promise.all([chargerEditionMemo(opts), chargerEditionMemo(opts), chargerEditionMemo(opts)]);
+  assert.equal(appels.filter((a) => a.table === 'frmt_editions' && !a.order).length, 1);
+});
+
+test('M6 : JSON-LD sans fermeture de balise possible', () => {
+  assert.equal(jsonLd({ name: 'X</script><script>alert(1)</script>' }).includes('</script'), false);
 });
 
 test('joueur exclu : pas de fiche, « Joueur masqué » à son rang, sans slug', async () => {

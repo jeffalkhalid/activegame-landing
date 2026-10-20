@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { chargerEdition } from '@/lib/frmt/data';
+import { chargerEditionMemo } from '@/lib/frmt/data';
 import type { Genre } from '@/lib/frmt/types';
 import RechercheJoueurs, { type EntreeIndex } from '../RechercheJoueurs';
 import { AppelApp, EnteteFrmt, PiedFrmt } from '../CadreFrmt';
@@ -26,7 +26,7 @@ const dateLongue = (iso: string) => new Date(iso).toLocaleDateString('fr-FR', { 
 
 export default async function PageClassement({ params }: { params: Promise<{ genre: Genre }> }) {
   const { genre } = await params;
-  const e = await chargerEdition();
+  const e = await chargerEditionMemo();
   const liste = e?.classements[genre] ?? [];
   const index: EntreeIndex[] = liste.map((j) => ({ r: j.rang, n: j.nom, c: j.club, a: j.annee, p: j.points, s: j.slug, er: j.evolutionRang, ep: j.evolutionPoints }));
 
