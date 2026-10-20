@@ -119,3 +119,13 @@ test('édition lue depuis un fichier (FRMT_EDITION_FICHIER) : aucun appel résea
   assert.equal(e.edition.id, 'x');
   assert.equal(appels.length, 0);
 });
+
+test('réglages Supabase absents au build : pas de plantage, édition nulle', async () => {
+  const sauve = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+  try {
+    const { fetchImpl, appels } = fausseBase(base(5));
+    assert.equal(await chargerEdition({ fetchImpl, cacheDir: cacheVide() }), null);
+    assert.equal(appels.length, 0);
+  } finally { process.env.NEXT_PUBLIC_SUPABASE_URL = sauve; }
+});

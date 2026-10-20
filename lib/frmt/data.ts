@@ -52,6 +52,12 @@ export async function chargerEdition(opts: { fetchImpl?: typeof fetch; cacheDir?
   const fichier = opts.fichier ?? process.env.FRMT_EDITION_FICHIER;
   if (fichier) return JSON.parse(readFileSync(fichier, 'utf8'));
 
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    // Le site doit continuer à se construire (pages « bientôt ») ; on le dit
+    // fort dans le journal du build plutôt que de casser le déploiement.
+    console.warn('⚠️  Classement FRMT : NEXT_PUBLIC_SUPABASE_URL / _ANON_KEY absents — pages en attente.');
+    return null;
+  }
   const db = client(opts.fetchImpl ?? fetch);
   const [publiee] = await db.get('frmt_editions', { status: 'eq.publiee', select: 'id,published_at', limit: '1' });
   if (!publiee) return null;
@@ -98,7 +104,8 @@ export async function chargerEdition(opts: { fetchImpl?: typeof fetch; cacheDir?
     const j = parJoueur.get(c.joueur_id);
     if (!j) continue;
     const genre = GENRE[j.categorie];
-    const ev = evolution({ rang: c.rang, points: Number(c.points) }, precedents.get(c.joueur_id) && { rang: precedents.get(c.joueur_id).rang, points: Number(precedents.get(c.joueur_id).points) });
+    const prec = precedents.get(c.joueur_id);
+    const ev = evolution({ rang: c.rang, points: Number(c.points) }, prec ? { rang: prec.rang, points: Number(prec.points) } : undefined);
     const masque = exclus.has(c.joueur_id);
     const aFiche = !masque && !c.ambigu;
     classements[genre].push({
