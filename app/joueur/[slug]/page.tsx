@@ -209,8 +209,7 @@ export default async function PageJoueur({ params }: { params: Promise<{ slug: s
           <Historique key="historique" f={f} />,
           <CartePartage key="carte" d={{
             nom: titre(f.nom), genre: GENRE[f.genre], rang: f.rang, top: topPourcent(f.rang, effectif), mois: moisClassement(e.edition.date),
-            points: nombre(f.points), evolutionPoints: f.evolutionPoints ? `${f.evolutionPoints > 0 ? '+' : '−'}${nombre(Math.abs(f.evolutionPoints))}` : null,
-            bilan: bilanCarte ? `${bilanCarte.gagnes} – ${bilanCarte.perdus}` : null, club: f.club, annee: f.annee,
+            points: nombre(f.points), bilan: bilanCarte ? { gagnes: bilanCarte.gagnes, perdus: bilanCarte.perdus } : null, club: f.club, annee: f.annee,
             url: `https://www.pagmatch.com/joueur/${f.slug}/`,
           }} />,
         ]} />

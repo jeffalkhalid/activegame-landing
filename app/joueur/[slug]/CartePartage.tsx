@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { tuilesCarte } from '@/lib/frmt/carte';
 
 export interface DonneesCarte {
   nom: string; genre: 'Hommes' | 'Femmes'; rang: number; top: number; mois: string;
-  points: string; evolutionPoints: string | null; bilan: string | null; club: string | null; annee: number; url: string;
+  points: string; bilan: { gagnes: number; perdus: number } | null; club: string | null; annee: number; url: string;
 }
 
 const L = 1080, H = 1350; // 4:5, bien reçu partout (stories, WhatsApp, fil Instagram)
@@ -56,16 +57,37 @@ async function dessiner(c: HTMLCanvasElement, d: DonneesCarte) {
   ctx.fillStyle = '#FFFFFF'; ctx.font = '800 34px Inter'; ctx.fillText('CLASSEMENT NATIONAL FRMT', L / 2, 750);
   ctx.fillStyle = GRIS; ctx.font = '600 32px Inter'; ctx.fillText(`${d.genre} · ${d.mois}`, L / 2, 800);
 
-  // Deux tuiles : points, bilan
-  const tuile = (x: number, grand: string, petit: string, extra: string | null) => {
-    ctx.fillStyle = CARTE; rectArrondi(ctx, x, 870, 430, 200, 28); ctx.fill();
-    ctx.textAlign = 'center'; ctx.fillStyle = '#FFFFFF'; ctx.font = '800 64px Inter';
-    ctx.fillText(grand, x + 215, 960);
-    if (extra) { ctx.fillStyle = '#22C55E'; ctx.font = '800 30px Inter'; ctx.fillText(extra, x + 215, 1000); }
-    ctx.fillStyle = GRIS; ctx.font = '700 26px Inter'; ctx.fillText(petit, x + 215, 1045);
-  };
-  tuile(90, d.points, 'POINTS', d.evolutionPoints);
-  tuile(560, d.bilan ?? '—', 'V – D SUR 12 MOIS', null);
+  // Tuiles du bas (maquette de jeffa du 21/10) : points, puis bilan victoires / défaites
+  // sur 12 mois — absent si le joueur n'a ni victoire ni défaite.
+  const Y = 870, HT = 210;
+  for (const t of tuilesCarte(d.bilan)) {
+    ctx.fillStyle = CARTE; rectArrondi(ctx, t.x, Y, t.largeur, HT, 28); ctx.fill();
+    const cx = t.x + t.largeur / 2;
+    if (t.type === 'points') {
+      ctx.fillStyle = '#FFFFFF'; ctx.font = '800 76px Inter'; ctx.fillText(d.points, cx, Y + 100);
+      ctx.fillStyle = '#C9CAD1'; ctx.font = '800 28px Inter'; ctx.fillText('POINTS', cx, Y + 178);
+      continue;
+    }
+    const b = d.bilan as { gagnes: number; perdus: number };
+    const colonne = (x: number, n: number, libelle: string, fond: string, icone: (x: number, y: number) => void) => {
+      ctx.fillStyle = fond; ctx.beginPath(); ctx.arc(x, Y + 42, 28, 0, Math.PI * 2); ctx.fill();
+      icone(x, Y + 42);
+      ctx.fillStyle = '#FFFFFF'; ctx.font = '800 66px Inter'; ctx.fillText(String(n), x, Y + 135);
+      ctx.fillStyle = '#C9CAD1'; ctx.font = '800 26px Inter'; ctx.fillText(libelle, x, Y + 172);
+    };
+    colonne(t.x + t.largeur * 0.27, b.gagnes, 'VICTOIRES', 'rgba(34,197,94,0.30)', (x, y) => {
+      ctx.save(); ctx.translate(x - 14.4, y - 14.4); ctx.scale(1.2, 1.2);
+      ctx.strokeStyle = '#E5E7EB'; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.stroke(new Path2D('M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3'));
+      ctx.restore();
+    });
+    colonne(t.x + t.largeur * 0.73, b.perdus, 'DÉFAITES', 'rgba(239,68,68,0.45)', (x, y) => {
+      ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 5; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(x - 9, y - 9); ctx.lineTo(x + 9, y + 9); ctx.moveTo(x + 9, y - 9); ctx.lineTo(x - 9, y + 9); ctx.stroke();
+    });
+    ctx.fillStyle = 'rgba(255,255,255,0.14)'; ctx.fillRect(cx - 1, Y + 24, 2, 150);
+    ctx.fillStyle = GRIS; ctx.font = '700 20px Inter'; ctx.fillText('SUR 12 MOIS', cx, Y + 198);
+  }
 
   ctx.fillStyle = GRIS; ctx.font = '600 30px Inter';
   ctx.fillText([d.club, String(d.annee)].filter(Boolean).join(' · '), L / 2, 1130);
