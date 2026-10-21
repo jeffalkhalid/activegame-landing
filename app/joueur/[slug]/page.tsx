@@ -2,9 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { chargerEditionMemo, jsonLd } from '@/lib/frmt/data';
 import { dateFR, evolutionTexte, libellesVides, nombre } from '@/lib/frmt/fiche';
+import { bilan12Mois, indicateurs, moisClassement, palmares, parCategorie, pointsParMois, topPourcent } from '@/lib/frmt/stats';
 import type { FicheJoueur, JoueurMatch } from '@/lib/frmt/types';
 import { AppelApp, EnteteFrmt, PiedFrmt } from '../../classement/CadreFrmt';
 import Courbe from './Courbe';
+import Onglets from './Onglets';
+import CartePartage from './CartePartage';
 
 export const dynamicParams = false;
 // Export statique : une route dynamique doit produire au moins une page. Avant
@@ -44,25 +47,118 @@ function Joueur({ j }: { j: JoueurMatch }) {
   return j.slug ? <Link href={`/joueur/${j.slug}/`}>{t}</Link> : <span>{t}</span>;
 }
 
-function Calcul({ f }: { f: FicheJoueur }) {
-  const p = f.palmares;
-  if (!p) return <section className="frmt-calc"><p>Palmarès détaillé bientôt disponible.</p></section>;
-  const lignes: Array<[string, string]> = [
-    ['Bonus départ / FIP', `${nombre(p.bonus.depart)} / ${nombre(p.bonus.fip)}`],
-    ["Championnats d'Afrique / arabe", `${nombre(p.bonus.afrique)} / ${nombre(p.bonus.arabe)}`],
-    ['Assimilation', `${p.assimilation.oui ? 'Oui' : 'Non'} · ${nombre(p.assimilation.points)}`],
-    ['Total points 12 mois', nombre(p.totaux.total12Mois)],
-    ['Total 12 meilleurs résultats', nombre(p.totaux.douzeMeilleurs)],
-    ['Bonus + 12 meilleurs', nombre(p.totaux.bonusPlusDouze)],
+const Coupe = () => (
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z" /><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3" />
+  </svg>
+);
+
+const MOIS_COURT = (m: string) => `${m.slice(5, 7)}/${m.slice(2, 4)}`;
+const TEINTES = ['var(--brand)', '#FFE08A', '#E8A906', 'rgba(255,255,255,0.75)', 'rgba(255,255,255,0.45)', 'rgba(255,255,255,0.25)'];
+
+function Stats({ f, date }: { f: FicheJoueur; date: string }) {
+  const bilan = bilan12Mois(f.matchs, date);
+  const ind = indicateurs(f.resultats, bilan);
+  const titres = palmares(f.resultats);
+  const mois = pointsParMois(f.resultats, date);
+  const maxMois = Math.max(1, ...mois.map((m) => m.comptes + m.nonComptes));
+  const cats = parCategorie(f.resultats);
+  const totalCats = cats.reduce((s, c) => s + c.points, 0) || 1;
+  const tuiles: Array<[string, string]> = [
+    ['Tournois (12 mois)', String(ind.tournois)],
+    ['Moyenne par tournoi', ind.moyenne != null ? `${nombre(ind.moyenne)} pts` : '—'],
+    ['Meilleur résultat', ind.meilleur != null ? `${nombre(ind.meilleur)} pts` : '—'],
+    ['Victoires', ind.victoires != null ? `${ind.victoires} %` : '—'],
   ];
   return (
-    <section className="frmt-calc">
-      {p.meilleur && <b>Meilleur classement : {p.meilleur.rang} ({nombre(p.meilleur.points)} pts, {dateFR(p.meilleur.date)})</b>}
-      <dl>
-        {lignes.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
-        <div className="fort"><dt>Points de classement</dt><dd>{nombre(p.totaux.pointsClassement)}</dd></div>
-      </dl>
-    </section>
+    <>
+      <section className="frmt-sec">
+        <h2>Indicateurs clés</h2>
+        <div className="frmt-kpis">
+          {tuiles.map(([k, v]) => <div key={k} className="frmt-kpi"><span>{k}</span><b>{v}</b></div>)}
+        </div>
+        {bilan && <p className="frmt-nb">{bilan.gagnes} victoire{bilan.gagnes > 1 ? 's' : ''}, {bilan.perdus} défaite{bilan.perdus > 1 ? 's' : ''} sur 12 mois.</p>}
+      </section>
+
+      {titres.length > 0 && (
+        <section className="frmt-sec">
+          <h2>Palmarès</h2>
+          <div className="frmt-palmares">
+            {titres.map((t) => (
+              <div key={t.categorie} className="frmt-palm-ligne">
+                <span className="frmt-palm-cat">{t.categorie}</span>
+                <span className="frmt-palm-coupes" aria-label={`${t.titres} titre${t.titres > 1 ? 's' : ''}`}>
+                  {Array.from({ length: t.titres }, (_, i) => <Coupe key={i} />)}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="frmt-sec">
+        <h2>Points par mois</h2>
+        <div className="frmt-mois">
+          {mois.map((m) => (
+            <div key={m.mois} className="frmt-mois-ligne">
+              <span className="frmt-mois-l">{MOIS_COURT(m.mois)}</span>
+              <span className="frmt-barre">
+                <i className="ok" style={{ width: `${(m.comptes / maxMois) * 100}%` }} />
+                <i className="non" style={{ width: `${(m.nonComptes / maxMois) * 100}%` }} />
+              </span>
+              <span className="frmt-mois-v">{nombre(m.comptes + m.nonComptes)} pts</span>
+            </div>
+          ))}
+        </div>
+        <p className="frmt-legende"><i className="ok" /> compte au classement <i className="non" /> ne compte pas</p>
+      </section>
+
+      {cats.length > 0 && (
+        <section className="frmt-sec">
+          <h2>Répartition par catégorie</h2>
+          <div className="frmt-repart">
+            {cats.map((c, i) => <i key={c.categorie} style={{ width: `${(c.points / totalCats) * 100}%`, background: TEINTES[i % TEINTES.length] }} />)}
+          </div>
+          <div className="frmt-repart-l">
+            {cats.map((c, i) => <span key={c.categorie}><i style={{ background: TEINTES[i % TEINTES.length] }} />{c.categorie} : {nombre(c.points)} pts</span>)}
+          </div>
+        </section>
+      )}
+    </>
+  );
+}
+
+function Historique({ f }: { f: FicheJoueur }) {
+  const vides = libellesVides(f);
+  return (
+    <>
+      <Courbe points={f.courbe} />
+      <section className="frmt-sec">
+        <h2>Tournois (12 mois)</h2>
+        {vides.resultats ? <p className="frmt-vide">{vides.resultats}</p> : f.resultats.map((r, i) => (
+          <div key={i} className={`frmt-row${r.compte ? ' ok' : ''}`}>
+            <div className="t">{r.tournoi}<small>{dateFR(r.date)}{r.categorie ? ` · ${r.categorie}` : ''} · {r.compte ? 'compté' : 'non compté'}</small></div>
+            <div className="p">{nombre(r.points)}</div>
+          </div>
+        ))}
+      </section>
+      <section className="frmt-sec">
+        <h2>Tous ses matchs FRMT{f.bilan ? ` · ${f.bilan.gagnes} V – ${f.bilan.perdus} D` : ''}</h2>
+        {vides.matchs ? <p className="frmt-vide">{vides.matchs}</p> : f.matchs.map((m, i) => (
+          <div key={i} className="frmt-m">
+            <div className="h">
+              <span>{m.tournoi}{m.phase ? ` · ${m.phase}` : ''}{m.tour ? ` · ${m.tour}` : ''}</span>
+              <span className={`res ${m.resultat === 'V' ? 'w' : 'lo'}`}>{m.resultat}</span>
+            </div>
+            <div className="l">
+              {m.partenaire && <>avec <Joueur j={m.partenaire} /> </>}
+              contre {m.adversaires.map((a, k) => <span key={k}>{k > 0 && ' / '}<Joueur j={a} /></span>)}
+              {m.score && <> · {m.score}</>}
+            </div>
+          </div>
+        ))}
+      </section>
+    </>
   );
 }
 
@@ -71,7 +167,7 @@ export default async function PageJoueur({ params }: { params: Promise<{ slug: s
   const { e, fiches } = await donnees();
   const f = fiches.get(slug);
 
-  if (!f) {
+  if (!f || !e) {
     return (
       <>
         <EnteteFrmt />
@@ -81,8 +177,9 @@ export default async function PageJoueur({ params }: { params: Promise<{ slug: s
     );
   }
 
-  const vides = libellesVides(f);
   const evo = evolutionTexte(f.evolutionRang);
+  const bilanCarte = bilan12Mois(f.matchs, e.edition.date);
+  const effectif = e.classements[f.genre].length;
   const personne = {
     '@context': 'https://schema.org', '@type': 'Person', name: titre(f.nom), birthDate: String(f.annee),
     ...(f.club && f.club !== 'IND' ? { memberOf: { '@type': 'SportsOrganization', name: f.club } } : {}),
@@ -102,40 +199,21 @@ export default async function PageJoueur({ params }: { params: Promise<{ slug: s
             {f.club && <span className="frmt-chip">{f.club}</span>}
             <span className="frmt-chip">Né{f.genre === 'femmes' ? 'e' : ''} en {f.annee}</span>
             <span className="frmt-chip">{nombre(f.points)} pts</span>
-            {evo && <span className={`frmt-chip ${f.evolutionRang! > 0 ? 'up' : 'dn'}`}>{evo} cette semaine</span>}
+            <span className="frmt-chip">Top {topPourcent(f.rang, effectif)} %</span>
+            {evo && <span className={`frmt-chip ${f.evolutionRang! > 0 ? 'up' : 'dn'}`}>{evo}</span>}
           </div>
         </header>
 
-        <Calcul f={f} />
-
-        <section className="frmt-sec">
-          <h2>Historique des scores (12 mois)</h2>
-          {vides.resultats ? <p className="frmt-vide">{vides.resultats}</p> : f.resultats.map((r, i) => (
-            <div key={i} className={`frmt-row${r.compte ? ' ok' : ''}`}>
-              <div className="t">{r.tournoi}<small>{dateFR(r.date)}{r.categorie ? ` · ${r.categorie}` : ''} · {r.compte ? 'compté' : 'non compté'}</small></div>
-              <div className="p">{nombre(r.points)}</div>
-            </div>
-          ))}
-        </section>
-
-        <section className="frmt-sec">
-          <h2>Matchs{f.bilan ? ` · ${f.bilan.gagnes} V – ${f.bilan.perdus} D` : ''}</h2>
-          {vides.matchs ? <p className="frmt-vide">{vides.matchs}</p> : f.matchs.map((m, i) => (
-            <div key={i} className="frmt-m">
-              <div className="h">
-                <span>{m.tournoi}{m.phase ? ` · ${m.phase}` : ''}{m.tour ? ` · ${m.tour}` : ''}</span>
-                <span className={`res ${m.resultat === 'V' ? 'w' : 'lo'}`}>{m.resultat}</span>
-              </div>
-              <div className="l">
-                {m.partenaire && <>avec <Joueur j={m.partenaire} /> </>}
-                contre {m.adversaires.map((a, k) => <span key={k}>{k > 0 && ' / '}<Joueur j={a} /></span>)}
-                {m.score && <> · {m.score}</>}
-              </div>
-            </div>
-          ))}
-        </section>
-
-        <Courbe points={f.courbe} />
+        <Onglets titres={['Stats', 'Historique', 'Carte']} panneaux={[
+          <Stats key="stats" f={f} date={e.edition.date} />,
+          <Historique key="historique" f={f} />,
+          <CartePartage key="carte" d={{
+            nom: titre(f.nom), genre: GENRE[f.genre], rang: f.rang, top: topPourcent(f.rang, effectif), mois: moisClassement(e.edition.date),
+            points: nombre(f.points), evolutionPoints: f.evolutionPoints ? `${f.evolutionPoints > 0 ? '+' : '−'}${nombre(Math.abs(f.evolutionPoints))}` : null,
+            bilan: bilanCarte ? `${bilanCarte.gagnes} – ${bilanCarte.perdus}` : null, club: f.club, annee: f.annee,
+            url: `https://www.pagmatch.com/joueur/${f.slug}/`,
+          }} />,
+        ]} />
 
         <AppelApp titre="C'est toi ?" texte="Ton classement FRMT règle ton niveau sur Pagmatch dès l'inscription." />
       </main>

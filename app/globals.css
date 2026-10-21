@@ -814,3 +814,35 @@ a.frmt-card:hover { border-color: var(--brand-line); color: var(--text); }
 .frmt-courbe-l { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-mute); }
 .frmt-pied { border-top: 1px solid var(--line-2); padding: 22px 0 40px; color: var(--text-mute); font-size: 13px; }
 .frmt-pied a { color: var(--text-dim); }
+
+/* Fiche joueur en onglets (Stats · Historique · Carte) — 2026-10-21 */
+.frmt-onglets { display: flex; gap: 4px; padding: 4px; background: var(--ink-card-2); border-radius: 14px; margin: 4px 0 16px; }
+.frmt-onglet { flex: 1; border: 0; background: transparent; color: var(--text-dim); font: inherit; font-weight: 700; font-size: 14px; padding: 10px; border-radius: 10px; cursor: pointer; }
+.frmt-onglet.on { background: var(--brand); color: var(--on-brand); }
+.frmt-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.frmt-kpi { background: var(--ink-card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.frmt-kpi span { display: block; color: var(--text-mute); font-size: 12px; font-weight: 600; }
+.frmt-kpi b { display: block; color: var(--brand); font-family: var(--f-mono-ui); font-size: 24px; font-weight: 800; margin-top: 4px; }
+.frmt-palmares { background: var(--ink-card); border-radius: 14px; padding: 8px 14px; }
+.frmt-palm-ligne { display: flex; align-items: center; gap: 12px; padding: 6px 0; }
+.frmt-palm-cat { width: 52px; font-weight: 800; font-family: var(--f-mono-ui); }
+.frmt-palm-coupes { display: flex; flex-wrap: wrap; gap: 4px; }
+.frmt-mois { background: var(--ink-card); border-radius: 14px; padding: 10px 14px; }
+.frmt-mois-ligne { display: grid; grid-template-columns: 44px 1fr 78px; align-items: center; gap: 10px; padding: 5px 0; font-size: 13px; }
+.frmt-mois-l { color: var(--text-mute); font-family: var(--f-mono-ui); }
+.frmt-mois-v { text-align: right; font-weight: 700; font-family: var(--f-mono-ui); white-space: nowrap; }
+.frmt-barre { display: flex; height: 14px; border-radius: 7px; background: var(--ink-card-2); overflow: hidden; }
+.frmt-barre i, .frmt-legende i { display: inline-block; height: 100%; }
+.frmt-barre i.ok, .frmt-legende i.ok { background: var(--brand); }
+.frmt-barre i.non, .frmt-legende i.non { background: rgba(255,255,255,0.28); }
+.frmt-legende { color: var(--text-mute); font-size: 12px; margin-top: 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.frmt-legende i { width: 10px; height: 10px; border-radius: 3px; margin-left: 6px; }
+.frmt-repart { display: flex; height: 16px; border-radius: 8px; overflow: hidden; background: var(--ink-card-2); }
+.frmt-repart i { display: block; height: 100%; }
+.frmt-repart-l { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 10px; font-size: 13px; font-weight: 600; }
+.frmt-repart-l i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.frmt-carte { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 16px; }
+.frmt-carte-img { width: 100%; max-width: 420px; border-radius: 18px; border: 1px solid var(--line); }
+.frmt-carte-attente { width: 100%; max-width: 420px; aspect-ratio: 4 / 5; border-radius: 18px; background: var(--ink-card); display: flex; align-items: center; justify-content: center; color: var(--text-mute); }
+.frmt-partager { width: 100%; max-width: 420px; justify-content: center; }
+.frmt-partager:disabled { opacity: 0.5; cursor: default; }
