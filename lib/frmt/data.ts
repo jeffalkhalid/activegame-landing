@@ -12,6 +12,8 @@
 // FRMT_EDITION_FICHIER=<chemin.json> : lit une édition déjà assemblée (mise au
 // point locale sans base).
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { request as requeteHttp } from 'node:http';
+import { request as requeteHttps } from 'node:https';
 import path from 'node:path';
 import type { EditionComplete, FicheJoueur, Genre, JoueurClasse, JoueurMatch, MatchFiche, ResultatFiche } from './types';
 
@@ -31,6 +33,26 @@ export function evolution(courant: { rang: number; points: number }, precedent?:
 export function jsonLd(objet: unknown): string {
   return JSON.stringify(objet).replace(/</g, '\\u003c');
 }
+
+/**
+ * Lecture HTTP directe par Node, SANS le fetch global : Next le remplace par une
+ * version qui met les réponses en cache dans .next/cache/fetch-cache, cache que
+ * Vercel garde d'un build à l'autre. Essai du 21/10 : après un retour en
+ * arrière (et donc aussi après chaque nouvelle édition), le site restait figé
+ * sur l'ancienne édition publiée.
+ */
+const fetchNode = ((url: string, init?: { headers?: Record<string, string> }) => new Promise((ok, ko) => {
+  const u = new URL(url);
+  const req = (u.protocol === 'http:' ? requeteHttp : requeteHttps)(u, { method: 'GET', headers: init?.headers }, (res) => {
+    let corps = '';
+    res.setEncoding('utf8');
+    res.on('data', (d) => { corps += d; });
+    res.on('end', () => ok({ ok: (res.statusCode ?? 0) < 300, status: res.statusCode ?? 0, json: async () => JSON.parse(corps) }));
+  });
+  req.on('error', ko);
+  req.setTimeout(60000, () => req.destroy(new Error(`délai dépassé : ${u.pathname}`)));
+  req.end();
+})) as unknown as typeof fetch;
 
 function client(fetchImpl: typeof fetch) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
@@ -88,7 +110,7 @@ export async function chargerEdition(opts: Options = {}): Promise<EditionComplet
     console.warn('⚠️  Classement FRMT : NEXT_PUBLIC_SUPABASE_URL / _ANON_KEY absents — pages en attente.');
     return null;
   }
-  const db = client(opts.fetchImpl ?? fetch);
+  const db = client(opts.fetchImpl ?? fetchNode);
   const [publiee] = await db.get('frmt_editions', { status: 'eq.publiee', select: 'id,started_at', limit: '1' });
   if (!publiee) return null;
 

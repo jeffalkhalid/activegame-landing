@@ -175,3 +175,31 @@ test('réglages Supabase absents au build : pas de plantage, édition nulle', as
     assert.equal(appels.length, 0);
   } finally { process.env.NEXT_PUBLIC_SUPABASE_URL = sauve; }
 });
+
+test('Essai du 21/10 : sans fetchImpl, les lectures NE passent PAS par fetch (que Next met en cache entre builds)', async () => {
+  const http = await import('node:http');
+  const tables = base(5);
+  const serveur = http.createServer((req, res) => {
+    const u = new URL(req.url as string, 'http://x');
+    const table = u.pathname.split('/').pop() as string;
+    let lignes = (tables as Record<string, Ligne[]>)[table] ?? [];
+    const st = u.searchParams.get('status');
+    if (st?.startsWith('eq.')) lignes = lignes.filter((l) => l.status === st.slice(3));
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(req.headers.range === '1000-1999' ? [] : lignes));
+  });
+  await new Promise<void>((ok) => serveur.listen(0, ok));
+  const port = (serveur.address() as { port: number }).port;
+  const sauveUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const sauveFetch = globalThis.fetch;
+  process.env.NEXT_PUBLIC_SUPABASE_URL = `http://127.0.0.1:${port}`;
+  globalThis.fetch = (() => { throw new Error('fetch global interdit'); }) as typeof fetch;
+  try {
+    const e = await chargerEdition({ cacheDir: cacheVide() });
+    assert.equal(e?.edition.id, 'ed-2');
+  } finally {
+    globalThis.fetch = sauveFetch;
+    process.env.NEXT_PUBLIC_SUPABASE_URL = sauveUrl;
+    serveur.close();
+  }
+});
