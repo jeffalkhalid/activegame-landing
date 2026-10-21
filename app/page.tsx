@@ -94,6 +94,9 @@ function Nav() {
           <a href="#how">Comment ça marche</a>
           <Link href="/classement/hommes/">Classement FRMT</Link>
         </div>
+        {/* Sur mobile, les rubriques du menu sont masquées : ce lien descend
+            directement au pied de page, qui les reprend toutes. */}
+        <a className="nav-rubriques" href="#rubriques">Rubriques</a>
         <a className="btn btn-brand" href="#download">Télécharger</a>
       </div>
     </nav>
@@ -598,7 +601,7 @@ function CtaBand() {
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" id="rubriques">
       <div className="wrap">
         <div className="footer-grid">
           <div className="footer-brand">

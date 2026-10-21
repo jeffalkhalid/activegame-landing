@@ -610,7 +610,12 @@ a.store:hover { transform: translateY(-2px); }
   .phone.w-hero { width: 230px; }
 }
 
-@media (max-width: 860px) { .nav-links { display: none; } }
+/* « Rubriques » : simple lien texte, visible seulement quand le menu est masqué. */
+.nav-rubriques { display: none; }
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-rubriques { display: inline; margin-left: auto; margin-right: 16px; color: var(--text-dim); font-size: 15px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+}
 
 /* ============================================================
    TÉLÉPHONE — les grilles à trois deviennent des carrousels
