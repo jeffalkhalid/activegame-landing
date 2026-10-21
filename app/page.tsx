@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { LEGAL } from '@/lib/legal';
 import HeroVideo from './HeroVideo';
 import StoreBadges from './StoreBadges';
+import AnimationsAccueil from './AnimationsAccueil';
 
 /* ============================================================================
    Landing pagmatch.com — d'après design_handoff_pagmatch_landing.
@@ -665,6 +666,7 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(APP_JSONLD) }} />
+      <AnimationsAccueil />
       <Nav />
       <Hero />
       <Orga />
