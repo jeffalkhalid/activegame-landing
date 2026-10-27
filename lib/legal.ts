@@ -17,10 +17,9 @@ export const LEGAL = {
   // (OpenStreetMap le 26/09, suppression de compte sans l'app le 27/09).
   // Garder identique a react-matchup/lib/legal.ts.
   privacyLastUpdate: '27 septembre 2026',
-  // URLs des stores. Google Play publié le 2026-10-20. App Store : laissé vide
-  // tant que la fiche n'est pas visible (apps.apple.com/ma/app/id6817251293
-  // répondait encore 404 le jour de la sortie) — badge « Bientôt » d'ici là.
-  appStoreUrl: '',
+  // URLs des stores. Google Play publié le 2026-10-20. App Store : 1.0.1 en
+  // ligne au Maroc le 2026-10-27 (la 1.0 y était bloquée par « Concours »).
+  appStoreUrl: 'https://apps.apple.com/ma/app/pagmatch/id6817251293',
   playStoreUrl: 'https://play.google.com/store/apps/details?id=com.pagmatch.app',
   // Test fermé : APK Android servi via une GitHub Release (tag stable « apk »,
   // limite 2 Go vs 50 Mo sur Supabase free ; URL constante d'une version à
