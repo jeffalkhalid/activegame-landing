@@ -14,9 +14,10 @@ export const LEGAL = {
   // n'a pas eu lieu.
   lastUpdate: '10 juin 2026',
   // La politique de confidentialite evolue SEULE, plus souvent que les CGU
-  // (OpenStreetMap le 26/09, suppression de compte sans l'app le 27/09).
+  // (OpenStreetMap le 26/09, suppression de compte sans l'app le 27/09,
+  // section RGPD et statistiques d'utilisation le 28/10).
   // Garder identique a react-matchup/lib/legal.ts.
-  privacyLastUpdate: '27 septembre 2026',
+  privacyLastUpdate: '28 octobre 2026',
   // URLs des stores. Google Play publié le 2026-10-20. App Store : 1.0.1 en
   // ligne au Maroc le 2026-10-27 (la 1.0 y était bloquée par « Concours »).
   appStoreUrl: 'https://apps.apple.com/ma/app/pagmatch/id6817251293',

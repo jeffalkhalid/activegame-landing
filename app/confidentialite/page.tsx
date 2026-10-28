@@ -23,7 +23,8 @@ export default function Confidentialite() {
           La présente politique décrit comment l’application <strong style={{ color: 'var(--text)' }}>{LEGAL.appName}</strong>{' '}
           (marque <strong style={{ color: 'var(--text)' }}>{LEGAL.brand}</strong>) traite vos données
           personnelles, conformément à la loi marocaine n° 09-08 relative à la protection des
-          personnes physiques à l’égard du traitement des données à caractère personnel.
+          personnes physiques à l’égard du traitement des données à caractère personnel et, pour
+          les utilisateurs de l’Union européenne, au RGPD (section 12).
         </p>
 
         <Section n={1} icon="👤" title="Qui est responsable ?">
@@ -58,6 +59,7 @@ export default function Confidentialite() {
             <li>Faire vivre la messagerie et la communauté.</li>
             <li>Vous envoyer les notifications liées à vos parties.</li>
             <li>Sécuriser le service et prévenir la fraude et les abus.</li>
+            <li>Mesurer l’utilisation de l’application (statistiques internes) pour l’améliorer.</li>
             <li>Respecter nos obligations légales.</li>
           </ul>
         </Section>
@@ -66,8 +68,8 @@ export default function Confidentialite() {
           <p>
             Nous traitons vos données pour <strong>exécuter le service</strong> que vous demandez, avec
             votre <strong>consentement</strong> (notamment notifications et contenus publiés) et au
-            titre de notre <strong>intérêt légitime</strong> à sécuriser la plateforme. Vous pouvez
-            retirer votre consentement à tout moment.
+            titre de notre <strong>intérêt légitime</strong> à sécuriser la plateforme et à
+            l’améliorer. Vous pouvez retirer votre consentement à tout moment.
           </p>
         </Section>
 
@@ -152,7 +154,63 @@ export default function Confidentialite() {
           </p>
         </Section>
 
-        <Section n={12} icon="🔄" title="Mises à jour">
+        {/* L'app vise le padel au Maroc, mais un résident de l'UE peut s'y
+            inscrire depuis chez lui : le RGPD peut alors s'appliquer. Garder ce
+            texte identique à react-matchup/app/legal/confidentialite.tsx. */}
+        <Section n={12} icon="🏛️" title="Utilisateurs de l’Union européenne (RGPD)">
+          <p>
+            Pagmatch est destiné à la pratique du padel au Maroc. Si vous résidez dans l’Union
+            européenne ou l’Espace économique européen, le <strong>Règlement général sur la protection
+            des données (RGPD)</strong> peut s’appliquer à vos données. Dans ce cas, en plus de ce qui
+            précède :
+          </p>
+          <ul>
+            <li>
+              <span>
+                <strong>Bases légales.</strong> L’exécution du service que vous demandez (compte,
+                parties, classement, messagerie, notifications de vos parties) ; votre consentement
+                (notifications push, localisation, photo de profil, zone de jeu, liaison au classement
+                FRMT), que vous pouvez retirer à tout moment ; notre intérêt légitime (sécurité,
+                prévention des abus, statistiques d’utilisation) ; nos obligations légales.
+              </span>
+            </li>
+            <li>
+              <span>
+                <strong>Vos droits.</strong> Accès, rectification, effacement, limitation, portabilité
+                (recevoir vos données dans un format lisible), opposition, notamment aux statistiques
+                d’utilisation, et retrait de votre consentement. Écrivez-nous à{' '}
+                <a href={`mailto:${LEGAL.contactEmail}`}>{LEGAL.contactEmail}</a> : nous répondons sous
+                un mois.
+              </span>
+            </li>
+            <li>
+              <span>
+                <strong>Niveau calculé automatiquement.</strong> Votre niveau et votre ELO sont calculés
+                à partir de vos résultats, pour proposer des parties équilibrées. Ce calcul ne produit
+                aucun effet juridique à votre égard, et vous pouvez contester un score depuis
+                l’application ou en nous écrivant.
+              </span>
+            </li>
+            <li>
+              <span>
+                <strong>Transferts.</strong> Nos données sont hébergées dans l’Union européenne
+                (Irlande). QUARTZTEC, établie au Maroc, y accède pour faire fonctionner le service, et
+                certains prestataires (section 5) peuvent traiter des données hors de l’Union. Ces
+                transferts reposent sur les garanties prévues par le RGPD, notamment les clauses
+                contractuelles types de la Commission européenne.
+              </span>
+            </li>
+            <li>
+              <span>
+                <strong>Réclamation.</strong> Vous pouvez saisir l’autorité de protection des données de
+                votre pays : en France la CNIL (<a href="https://www.cnil.fr">www.cnil.fr</a>), en
+                Espagne l’AEPD (<a href="https://www.aepd.es">www.aepd.es</a>).
+              </span>
+            </li>
+          </ul>
+        </Section>
+
+        <Section n={13} icon="🔄" title="Mises à jour">
           <p>
             Nous pouvons faire évoluer cette politique. En cas de changement important, nous vous en
             informerons. La date en haut de page indique la dernière révision.
