@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import LienInstagram from './LienInstagram';
 import { RUBRIQUES } from './rubriques';
 
 /**
@@ -51,6 +52,7 @@ export default function MenuBurger() {
             ? <Link key={r.href} href={r.href} onClick={fermer}>{r.label}</Link>
             : <a key={r.href} href={r.href} onClick={fermer}>{r.label}</a>
           ))}
+          <LienInstagram onClick={fermer} />
         </div>
       </div>
     </div>

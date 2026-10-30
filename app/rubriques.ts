@@ -8,3 +8,5 @@ export const RUBRIQUES = [
   { href: '#how', label: 'Comment ça marche' },
   { href: '/classement/hommes/', label: 'Classement FRMT', page: true },
 ] as const;
+
+export const INSTAGRAM_URL = 'https://www.instagram.com/pagmatch/';

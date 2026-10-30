@@ -4,8 +4,9 @@ import HeroVideo from './HeroVideo';
 import StoreBadges from './StoreBadges';
 import AnimationsAccueil from './AnimationsAccueil';
 import FlecheHaut from './FlecheHaut';
+import LienInstagram from './LienInstagram';
 import MenuBurger from './MenuBurger';
-import { RUBRIQUES } from './rubriques';
+import { INSTAGRAM_URL, RUBRIQUES } from './rubriques';
 
 /* ============================================================================
    Landing pagmatch.com — d'après design_handoff_pagmatch_landing.
@@ -630,6 +631,7 @@ function Footer() {
             <a href={`mailto:${LEGAL.contactEmail}`}>{LEGAL.contactEmail}</a>
             <a href={`mailto:${LEGAL.contactEmail}?subject=Support`}>Support</a>
             <a href={`mailto:${LEGAL.contactEmail}?subject=Club%20partenaire`}>Devenir club partenaire</a>
+            <LienInstagram />
           </div>
         </div>
         <div className="footer-bottom">
@@ -680,7 +682,7 @@ const SITE_JSONLD = {
       legalName: 'QUARTZTEC',
       url: 'https://www.pagmatch.com/',
       logo: 'https://www.pagmatch.com/assets/pagmatch-logo.png',
-      sameAs: ['https://www.instagram.com/pagmatch/', LEGAL.playStoreUrl, LEGAL.appStoreUrl],
+      sameAs: [INSTAGRAM_URL, LEGAL.playStoreUrl, LEGAL.appStoreUrl],
     },
   ],
 };

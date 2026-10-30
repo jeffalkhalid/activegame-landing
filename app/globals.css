@@ -664,6 +664,8 @@ a.store:hover { transform: translateY(-2px); }
   letter-spacing: 0.04em; color: var(--text-dim);
 }
 .nav-panel-inner a:not(.btn):hover { color: var(--text); }
+a.lien-insta { display: flex; align-items: center; gap: 8px; }
+a.lien-insta svg { flex: none; }
 @media (prefers-reduced-motion: reduce) {
   .burger span, .nav-panel { transition: none; }
 }
