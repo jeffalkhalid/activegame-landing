@@ -629,6 +629,23 @@ a.store:hover { transform: translateY(-2px); }
 .burger.open span:nth-child(2) { opacity: 0; }
 .burger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
+/* Flèche « remonter » : sous la barre (z-index 100), donc sous le menu ouvert. */
+.fleche-haut {
+  position: fixed; z-index: 90;
+  right: 16px; bottom: calc(20px + env(safe-area-inset-bottom));
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(10,10,10,0.82); color: var(--brand);
+  border: 1px solid var(--brand-line);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+}
+.fleche-haut.on { opacity: 1; visibility: visible; transform: none; }
+.fleche-haut:hover { color: var(--brand-bright); }
+.fleche-haut svg { width: 20px; height: 20px; }
+@media (prefers-reduced-motion: reduce) { .fleche-haut { transition: none; } }
+
 /* Accroché à .nav (fixe) : pleine largeur, juste sous la barre. */
 .nav:has(.nav-panel.open) { background: var(--ink); border-bottom-color: var(--line); }
 .nav-panel {

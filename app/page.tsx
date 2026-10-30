@@ -3,6 +3,7 @@ import { LEGAL } from '@/lib/legal';
 import HeroVideo from './HeroVideo';
 import StoreBadges from './StoreBadges';
 import AnimationsAccueil from './AnimationsAccueil';
+import FlecheHaut from './FlecheHaut';
 import MenuBurger from './MenuBurger';
 import { RUBRIQUES } from './rubriques';
 
@@ -675,6 +676,7 @@ export default function Home() {
       <Proofs />
       <CtaBand />
       <Footer />
+      <FlecheHaut />
     </>
   );
 }
