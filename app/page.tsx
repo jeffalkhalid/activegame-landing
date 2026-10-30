@@ -660,10 +660,36 @@ const APP_JSONLD = {
     : {}),
 };
 
+// Dit à Google que « Pagmatch » est un nom de site et de marque, pas une faute.
+const SITE_JSONLD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.pagmatch.com/#site',
+      name: LEGAL.appName,
+      alternateName: LEGAL.brand,
+      url: 'https://www.pagmatch.com/',
+      inLanguage: 'fr',
+      publisher: { '@id': 'https://www.pagmatch.com/#organisation' },
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.pagmatch.com/#organisation',
+      name: LEGAL.appName,
+      legalName: 'QUARTZTEC',
+      url: 'https://www.pagmatch.com/',
+      logo: 'https://www.pagmatch.com/assets/pagmatch-logo.png',
+      sameAs: ['https://www.instagram.com/pagmatch/', LEGAL.playStoreUrl, LEGAL.appStoreUrl],
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(APP_JSONLD) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSONLD) }} />
       <AnimationsAccueil />
       <Nav />
       <Hero />
