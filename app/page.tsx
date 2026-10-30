@@ -3,6 +3,8 @@ import { LEGAL } from '@/lib/legal';
 import HeroVideo from './HeroVideo';
 import StoreBadges from './StoreBadges';
 import AnimationsAccueil from './AnimationsAccueil';
+import MenuBurger from './MenuBurger';
+import { RUBRIQUES } from './rubriques';
 
 /* ============================================================================
    Landing pagmatch.com — d'après design_handoff_pagmatch_landing.
@@ -79,6 +81,13 @@ const Ic = {
 
 /* ---------- NAV ----------------------------------------------------------- */
 
+function LiensRubriques() {
+  return RUBRIQUES.map(r => ('page' in r
+    ? <Link key={r.href} href={r.href}>{r.label}</Link>
+    : <a key={r.href} href={r.href}>{r.label}</a>
+  ));
+}
+
 function Nav() {
   return (
     <nav className="nav" id="nav">
@@ -88,17 +97,10 @@ function Nav() {
           <img className="wm" src="/assets/auth/splash-wordmark.png" alt="Pagmatch" />
         </a>
         <div className="nav-links">
-          <a href="#orga">Fonctionnement</a>
-          <a href="#defi">Le défi</a>
-          <a href="#live">Score en direct</a>
-          <a href="#profil">Ton profil</a>
-          <a href="#how">Comment ça marche</a>
-          <Link href="/classement/hommes/">Classement FRMT</Link>
+          <LiensRubriques />
         </div>
-        {/* Sur mobile, les rubriques du menu sont masquées : ce lien descend
-            directement au pied de page, qui les reprend toutes. */}
-        <a className="nav-rubriques" href="#rubriques">Rubriques</a>
-        <a className="btn btn-brand" href="#download">Télécharger</a>
+        <a className="btn btn-brand nav-cta" href="#download">Télécharger</a>
+        <MenuBurger />
       </div>
     </nav>
   );
@@ -602,7 +604,7 @@ function CtaBand() {
 
 function Footer() {
   return (
-    <footer className="footer" id="rubriques">
+    <footer className="footer">
       <div className="wrap">
         <div className="footer-grid">
           <div className="footer-brand">
@@ -614,12 +616,7 @@ function Footer() {
           </div>
           <div className="foot-col">
             <h4>Produit</h4>
-            <a href="#orga">Fonctionnement</a>
-            <a href="#defi">Le défi</a>
-            <a href="#live">Score en direct</a>
-            <a href="#profil">Ton profil</a>
-            <a href="#how">Comment ça marche</a>
-            <Link href="/classement/hommes/">Classement FRMT</Link>
+            <LiensRubriques />
             <a href="#download">Télécharger</a>
           </div>
           <div className="foot-col">

@@ -610,11 +610,45 @@ a.store:hover { transform: translateY(-2px); }
   .phone.w-hero { width: 230px; }
 }
 
-/* « Rubriques » : simple lien texte, visible seulement quand le menu est masqué. */
-.nav-rubriques { display: none; }
+/* Menu burger : remplace les rubriques et « Télécharger » sous 860 px. */
+.nav-burger { display: none; }
 @media (max-width: 860px) {
-  .nav-links { display: none; }
-  .nav-rubriques { display: inline; margin-left: auto; margin-right: 16px; color: var(--text-dim); font-size: 15px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .nav-links, .nav-cta { display: none; }
+  .nav-burger { display: block; }
+}
+.burger {
+  width: 44px; height: 44px; margin-right: -10px; padding: 0 10px;
+  display: flex; flex-direction: column; justify-content: center; gap: 6px;
+  background: none; border: 0; cursor: pointer;
+}
+.burger span {
+  display: block; height: 2px; border-radius: 2px; background: var(--text);
+  transition: transform .2s ease, opacity .2s ease;
+}
+.burger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Accroché à .nav (fixe) : pleine largeur, juste sous la barre. */
+.nav:has(.nav-panel.open) { background: var(--ink); border-bottom-color: var(--line); }
+.nav-panel {
+  position: absolute; top: 100%; left: 0; right: 0;
+  max-height: calc(100vh - 78px); max-height: calc(100dvh - 78px); overflow-y: auto;
+  background: var(--ink); border-bottom: 1px solid var(--line);
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+}
+.nav-panel.open { opacity: 1; visibility: visible; transform: none; }
+.nav-panel-inner { display: flex; flex-direction: column; padding-top: 16px; padding-bottom: 12px; }
+.nav-panel-inner .btn { justify-content: center; margin-bottom: 8px; }
+.nav-panel-inner a:not(.btn) {
+  padding: 15px 0; border-top: 1px solid var(--line-2);
+  font-family: var(--f-mono-ui); font-weight: 700; font-size: 15px;
+  letter-spacing: 0.04em; color: var(--text-dim);
+}
+.nav-panel-inner a:not(.btn):hover { color: var(--text); }
+@media (prefers-reduced-motion: reduce) {
+  .burger span, .nav-panel { transition: none; }
 }
 
 /* ============================================================
