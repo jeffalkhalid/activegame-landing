@@ -761,7 +761,14 @@ html:has(.clair), body:has(.clair) { background: #F2F1EE; }
 .clair .how { background: linear-gradient(180deg, #F2F1EE, #ECEAE6); }
 
 /* Hero : la vidéo reste telle quelle, en couleur, texte blanc (.sombre dans page.tsx).
-   Ne PAS la délaver en blanc : refusé par jeffa le 2026-11-04. */
+   Ne PAS la délaver en blanc : refusé par jeffa le 2026-11-04.
+   Seul son bas fond dans le blanc cassé de la page (demandé le même jour) :
+   la vidéo et son voile deviennent transparents, le fond clair du hero apparaît. */
+.clair .hero.sombre { background: #F2F1EE; }
+.clair .hero-bg {
+  -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 80%, transparent 100%);
+}
 
 /* ---- Barre de navigation : le logo dans une pilule noire (son blanc
    disparaîtrait sur fond clair), comme en tête du carrousel ---- */
