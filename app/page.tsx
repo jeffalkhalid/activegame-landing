@@ -118,7 +118,7 @@ function Hero() {
     { top: '76%', left: '9%', w: 120 },
   ];
   return (
-    <header className="hero" id="top">
+    <header className="hero sombre" id="top">
       <div className="hero-bg">
         <HeroVideo />
         <div className="hero-vid-overlay" />

@@ -715,8 +715,9 @@ a.lien-insta svg { flex: none; }
    devient un surligneur, les éléments forts passent en noir.
    Ne touche QUE l'accueil : /cgu, /confidentialite, /classement et
    /joueur restent sur la charte sombre de :root.
-   Les sections marquées .sombre (appel final, pied de page) gardent
-   les variables sombres.
+   Les sections marquées .sombre (hero vidéo, appel final, pied de page)
+   gardent les variables sombres, ainsi que la barre de navigation tant
+   qu'elle est posée sur la vidéo (pas encore .scrolled).
    ============================================================ */
 .clair {
   --ink:        #F2F1EE;
@@ -734,7 +735,7 @@ a.lien-insta svg { flex: none; }
   background: var(--ink); color: var(--text);
 }
 html:has(.clair), body:has(.clair) { background: #F2F1EE; }
-.sombre {
+.sombre, .clair .nav:not(.scrolled) {
   --ink:        #0A0A0A;
   --ink-alt:    #1A1A1C;
   --ink-card:   #131315;
@@ -759,14 +760,8 @@ html:has(.clair), body:has(.clair) { background: #F2F1EE; }
 }
 .clair .how { background: linear-gradient(180deg, #F2F1EE, #ECEAE6); }
 
-/* ---- Hero : la vidéo devient une texture, sous une lumière venue d'en haut à gauche ---- */
-.clair .hero { background: var(--ink); }
-.clair .hero-bg .hero-video { filter: grayscale(1) contrast(0.9); }
-.clair .hero-vid-overlay {
-  background:
-    radial-gradient(1100px 720px at 12% 0%, rgba(255,255,255,0.92), transparent 62%),
-    linear-gradient(180deg, rgba(242,241,238,0.84) 0%, rgba(242,241,238,0.76) 45%, #F2F1EE 100%);
-}
+/* Hero : la vidéo reste telle quelle, en couleur, texte blanc (.sombre dans page.tsx).
+   Ne PAS la délaver en blanc : refusé par jeffa le 2026-11-04. */
 
 /* ---- Barre de navigation : le logo dans une pilule noire (son blanc
    disparaîtrait sur fond clair), comme en tête du carrousel ---- */
@@ -776,7 +771,7 @@ html:has(.clair), body:has(.clair) { background: #F2F1EE; }
 .clair .nav-logo img.wm { height: 21px; }
 
 /* ---- Le jaune devient un surligneur sous les mots ---- */
-.clair :is(.hero h1, .split h2, .score-head h2, .section-head h2) .y {
+.clair :is(.split h2, .score-head h2, .section-head h2) .y {
   color: var(--text);
   background: linear-gradient(transparent 56%, var(--brand) 56%, var(--brand) 94%, transparent 94%);
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
