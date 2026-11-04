@@ -708,6 +708,114 @@ a.lien-insta svg { flex: none; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 20px; }
   .section-head h2 { font-size: clamp(34px, 9vw, 44px); }
 }
+
+/* ============================================================
+   THÈME CLAIR DE L'ACCUEIL (.clair) — d'après le carrousel PAGScore
+   (2026-11-04) : fond blanc cassé chaud, texte presque noir, le jaune
+   devient un surligneur, les éléments forts passent en noir.
+   Ne touche QUE l'accueil : /cgu, /confidentialite, /classement et
+   /joueur restent sur la charte sombre de :root.
+   Les sections marquées .sombre (appel final, pied de page) gardent
+   les variables sombres.
+   ============================================================ */
+.clair {
+  --ink:        #F2F1EE;
+  --ink-alt:    #EAE8E4;
+  --ink-card:   #FFFFFF;
+  --ink-card-2: #FAF9F6;
+  --text:       #141414;
+  --text-dim:   #57534E;
+  --text-mute:  #77726B;
+  --text-faint: #A39E96;
+  --line:       rgba(20,20,20,0.10);
+  --line-2:     rgba(20,20,20,0.07);
+  --brand-line: rgba(214,155,0,0.55);
+  --brand-fill: rgba(255,193,26,0.18);
+  background: var(--ink); color: var(--text);
+}
+html:has(.clair), body:has(.clair) { background: #F2F1EE; }
+.sombre {
+  --ink:        #0A0A0A;
+  --ink-alt:    #1A1A1C;
+  --ink-card:   #131315;
+  --ink-card-2: #19191C;
+  --text:       #FFFFFF;
+  --text-dim:   #CBD5E1;
+  --text-mute:  #8A8A93;
+  --text-faint: #5A5A62;
+  --line:       rgba(255,255,255,0.10);
+  --line-2:     rgba(255,255,255,0.06);
+  --brand-line: rgba(255,193,26,0.35);
+  --brand-fill: rgba(255,193,26,0.10);
+  color: var(--text);
+}
+
+/* ---- Fonds de section : du blanc cassé au grège, comme le carrousel ---- */
+.clair .sec-alt, .clair .sec-live { background: linear-gradient(180deg, #ECEAE6, #F2F1EE); }
+.clair .sec-defi {
+  background:
+    radial-gradient(900px 420px at 82% 0%, rgba(255,193,26,0.16), transparent 62%),
+    linear-gradient(180deg, #F2F1EE, #ECEAE6);
+}
+.clair .how { background: linear-gradient(180deg, #F2F1EE, #ECEAE6); }
+
+/* ---- Hero : la vidéo devient une texture, sous une lumière venue d'en haut à gauche ---- */
+.clair .hero { background: var(--ink); }
+.clair .hero-bg .hero-video { filter: grayscale(1) contrast(0.9); }
+.clair .hero-vid-overlay {
+  background:
+    radial-gradient(1100px 720px at 12% 0%, rgba(255,255,255,0.92), transparent 62%),
+    linear-gradient(180deg, rgba(242,241,238,0.84) 0%, rgba(242,241,238,0.76) 45%, #F2F1EE 100%);
+}
+
+/* ---- Barre de navigation : le logo dans une pilule noire (son blanc
+   disparaîtrait sur fond clair), comme en tête du carrousel ---- */
+.clair .nav.scrolled { background: rgba(242,241,238,0.86); }
+.clair .nav-logo { background: #141414; padding: 5px 14px 5px 6px; border-radius: 999px; }
+.clair .nav-logo img.racket { width: 34px; height: 34px; }
+.clair .nav-logo img.wm { height: 21px; }
+
+/* ---- Le jaune devient un surligneur sous les mots ---- */
+.clair :is(.hero h1, .split h2, .score-head h2, .section-head h2) .y {
+  color: var(--text);
+  background: linear-gradient(transparent 56%, var(--brand) 56%, var(--brand) 94%, transparent 94%);
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  padding: 0 0.06em;
+}
+/* Rubrique : « — FONCTIONNEMENT », gris chaud, précédée d'un tiret */
+.clair .eyebrow { color: #8A857E; display: flex; align-items: center; gap: 14px; }
+.clair .eyebrow::before { content: ""; width: 26px; height: 2px; background: currentColor; opacity: 0.6; flex: none; }
+
+/* ---- Pastilles et icônes : le noir porte le jaune ---- */
+.clair .pill { background: #141414; border-color: #141414; }
+.clair .check-ic { background: var(--brand); border-color: var(--brand); color: #141414; }
+.clair .row-ic { background: #141414; border-color: #141414; color: var(--brand); }
+
+/* ---- Cartes blanches, ombre douce ---- */
+.clair .feat-card, .clair .tier, .clair .defi-card, .clair .step {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 14px 34px rgba(40,32,18,0.07);
+}
+.clair .step { background: var(--ink-card); border-color: var(--line); }
+.clair .notif { background: rgba(255,255,255,0.84); box-shadow: 0 18px 40px rgba(40,32,18,0.14); }
+.clair .phone { box-shadow: 0 34px 70px rgba(40,32,18,0.28), 0 0 0 1px rgba(0,0,0,0.08); }
+
+/* ---- Petits éléments pensés pour le noir ---- */
+.clair .lvl-bar, .clair .rel-bars span { background: rgba(20,20,20,0.08); }
+.clair .rel-bars span.on { background: var(--brand); }
+.clair .rel-bars span.half { background: rgba(255,193,26,0.5); }
+.clair .lvl-knob { border-color: #fff; }
+.clair .st4-n, .clair .step-n .num, .clair .vs { color: var(--text); }
+.clair .t-std .tier-x { color: #D69E00; }
+.clair .stake-lose { color: #DC2626; }
+.clair .stake-win { color: #059669; }
+.clair .h2h-hist .w { background: #10B981; }
+.clair .h2h-hist .l { background: rgba(20,20,20,0.14); }
+.clair .av { background: #141414; color: #fff; border-color: var(--ink-card); }
+.clair .av.me { background: var(--brand); color: #141414; }
+.clair .proof-links a { text-decoration-color: rgba(20,20,20,0.25); }
+
+/* ---- Ce qui reste noir ---- */
+.sombre .pill { background: var(--brand-fill); border-color: var(--brand-line); }
 /* ============================================================
    PAGES LÉGALES (/confidentialite, /cgu) — styles conservés
    ============================================================ */

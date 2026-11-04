@@ -495,7 +495,7 @@ function Score() {
         <div className="score-head reveal">
           <div>
             <Eyebrow>Le score</Eyebrow>
-            <h2 className="welcome">«&nbsp;On a joué, <span className="y">et alors ?</span>&nbsp;»</h2>
+            <h2 className="welcome">«&nbsp;On a joué, <span className="y">et alors&nbsp;?</span>&nbsp;»</h2>
           </div>
           <p className="sec-lede">
             Le score se perd dans le groupe, personne ne sait qui progresse. Ici, l&apos;adversaire
@@ -587,7 +587,7 @@ function Proofs() {
 
 function CtaBand() {
   return (
-    <section className="cta-band" id="download">
+    <section className="cta-band sombre" id="download">
       <div className="cta-trails" aria-hidden="true">
         <span style={{ top: '28%', left: '8%', width: 200, transform: 'rotate(-18deg)' }} />
         <span style={{ top: '62%', left: '74%', width: 170, transform: 'rotate(-18deg)' }} />
@@ -606,7 +606,7 @@ function CtaBand() {
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer sombre">
       <div className="wrap">
         <div className="footer-grid">
           <div className="footer-brand">
@@ -688,8 +688,9 @@ const SITE_JSONLD = {
 };
 
 export default function Home() {
+  // .clair : thème clair de l'accueil (globals.css), d'après le carrousel PAGScore.
   return (
-    <>
+    <div className="clair">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(APP_JSONLD) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSONLD) }} />
       <AnimationsAccueil />
@@ -705,6 +706,6 @@ export default function Home() {
       <CtaBand />
       <Footer />
       <FlecheHaut />
-    </>
+    </div>
   );
 }
