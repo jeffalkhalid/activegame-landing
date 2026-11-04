@@ -778,7 +778,8 @@ html:has(.clair), body:has(.clair) { background: #F2F1EE; }
 .clair .nav-logo img.wm { height: 21px; }
 
 /* ---- Le jaune devient un surligneur sous les mots ---- */
-.clair :is(.split h2, .score-head h2, .section-head h2) .y {
+.clair :is(.split h2, .score-head h2, .section-head h2) .y,
+.clair .frmt-h1 span {
   color: var(--text);
   background: linear-gradient(transparent 56%, var(--brand) 56%, var(--brand) 94%, transparent 94%);
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
@@ -815,6 +816,26 @@ html:has(.clair), body:has(.clair) { background: #F2F1EE; }
 .clair .av { background: #141414; color: #fff; border-color: var(--ink-card); }
 .clair .av.me { background: var(--brand); color: #141414; }
 .clair .proof-links a { text-decoration-color: rgba(20,20,20,0.25); }
+
+/* ---- Classement FRMT (/classement, /joueur) en thème clair ----
+   Même règle que l'accueil : les gros chiffres et les onglets actifs passent
+   en noir, le jaune reste en aplat (podium, appel vers l'app). */
+.clair .frmt-nav { background: rgba(242,241,238,0.9); }
+.clair .frmt-tab, .clair .frmt-onglets, .clair .frmt-search, .clair .frmt-plus {
+  background: var(--ink-card); border: 1px solid var(--line);
+}
+.clair .frmt-tab.on, .clair .frmt-onglet.on { background: #141414; color: var(--brand); border-color: #141414; }
+.clair .frmt-card, .clair .frmt-kpi { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 20px rgba(40,32,18,0.05); }
+.clair .frmt-rk, .clair .frmt-chip { background: #F2F1EE; }
+.clair .frmt-card.podium .frmt-rk { background: var(--brand); color: #141414; }
+.clair .frmt-chip.up, .clair .frmt-pts small.up { color: #16A34A; }
+.clair .frmt-chip.dn, .clair .frmt-pts small.dn { color: #DC2626; }
+.clair .frmt-rkbig, .clair .frmt-kpi b { color: var(--text); }
+.clair .frmt-calc { border-color: rgba(20,20,20,0.18); }
+.clair .frmt-calc .fort dt, .clair .frmt-calc .fort dd { color: #B07A00; }
+.clair .frmt-m .l a { color: var(--text); text-decoration: underline; text-decoration-color: var(--brand); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.clair .frmt-barre i.non, .clair .frmt-legende i.non { background: rgba(20,20,20,0.18); }
+.clair .frmt-palm-coupes svg { stroke: #D69E00; }
 
 /* ---- Ce qui reste noir ---- */
 .sombre .pill { background: var(--brand-fill); border-color: var(--brand-line); }

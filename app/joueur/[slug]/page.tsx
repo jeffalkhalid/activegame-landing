@@ -54,7 +54,8 @@ const Coupe = () => (
 );
 
 const MOIS_COURT = (m: string) => `${m.slice(5, 7)}/${m.slice(2, 4)}`;
-const TEINTES = ['var(--brand)', '#FFE08A', '#E8A906', 'rgba(255,255,255,0.75)', 'rgba(255,255,255,0.45)', 'rgba(255,255,255,0.25)'];
+// Teintes lisibles sur fond clair (la page est en thème .clair).
+const TEINTES = ['var(--brand)', '#FFE08A', '#E8A906', '#141414', '#77726B', '#C9C4BB'];
 
 function Stats({ f, date }: { f: FicheJoueur; date: string }) {
   const bilan = bilan12Mois(f.matchs, date);
