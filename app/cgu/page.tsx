@@ -121,10 +121,6 @@ export default function Cgu() {
               gardez vos parties déjà prévues, mais ne pouvez plus en rejoindre ni en créer ;
             </li>
             <li>
-              <strong>bloquer</strong> votre compte, à l’issue de votre dernière partie prévue : vous ne
-              pouvez alors plus utiliser le Service, sauf pour supprimer votre compte ;
-            </li>
-            <li>
               <strong>supprimer</strong> votre compte.
             </li>
           </ul>
