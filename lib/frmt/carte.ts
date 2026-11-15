@@ -1,13 +1,16 @@
-// Disposition des tuiles du bas de la carte à partager (image 1080 × 1350).
-const L = 1080, LARGEUR = 430, MARGE = 90;
+// Ligne de chiffres en bas de la carte à partager (image 1080 × 1350),
+// dans l'esprit de la story « Carte Noire » de l'app (15/11/2026).
+export const CARTE_L = 1080, CARTE_MARGE = 92;
 
-export type Tuile = { type: 'points' | 'bilan'; x: number; largeur: number };
+export type Colonne = { valeur: string; libelle: string; x: number; align: 'left' | 'center' | 'right' };
 
-/** Sans victoire ni défaite sur 12 mois, pas de tuile bilan : les points se centrent. */
-export function tuilesCarte(bilan: { gagnes: number; perdus: number } | null): Tuile[] {
-  if (!bilan || bilan.gagnes + bilan.perdus === 0) return [{ type: 'points', x: (L - LARGEUR) / 2, largeur: LARGEUR }];
+/** Sans victoire ni défaite sur 12 mois, la ligne ne montre que les points. */
+export function colonnesCarte(points: string, bilan: { gagnes: number; perdus: number } | null): Colonne[] {
+  const pts: Colonne = { valeur: points, libelle: 'POINTS', x: CARTE_MARGE, align: 'left' };
+  if (!bilan || bilan.gagnes + bilan.perdus === 0) return [pts];
   return [
-    { type: 'points', x: MARGE, largeur: LARGEUR },
-    { type: 'bilan', x: L - MARGE - LARGEUR, largeur: LARGEUR },
+    pts,
+    { valeur: String(bilan.gagnes), libelle: 'VICTOIRES', x: CARTE_L / 2, align: 'center' },
+    { valeur: String(bilan.perdus), libelle: 'DÉFAITES', x: CARTE_L - CARTE_MARGE, align: 'right' },
   ];
 }

@@ -1035,3 +1035,89 @@ a.frmt-card:hover { border-color: var(--brand-line); color: var(--text); }
 .frmt-carte-attente { width: 100%; max-width: 420px; aspect-ratio: 4 / 5; border-radius: 18px; background: var(--ink-card); display: flex; align-items: center; justify-content: center; color: var(--text-mute); }
 .frmt-partager { width: 100%; max-width: 420px; justify-content: center; }
 .frmt-partager:disabled { opacity: 0.5; cursor: default; }
+/* ════════════════════════════════════════════════════════════════════════
+   FICHE JOUEUR SUR UNE PAGE (15/11/2026) — en-tête noir comme la story
+   « Carte Noire », sommaire d'ancres, frise mois par mois, partenaires.
+   ════════════════════════════════════════════════════════════════════════ */
+html:has(.fp-heros) { scroll-behavior: smooth; }
+.fp-heros { position: relative; overflow: hidden; background: #0A0A0A; color: #fff; border-radius: 22px; padding: 24px 22px 22px; margin-bottom: 4px; }
+.fp-heros::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 90% 0%, rgba(255,193,26,0.22), rgba(255,193,26,0) 60%); pointer-events: none; }
+.fp-heros > * { position: relative; }
+.fp-pastille { display: inline-block; font-size: 10.5px; font-weight: 900; letter-spacing: 1.5px; color: var(--brand); border: 1px solid rgba(255,193,26,0.45); background: rgba(255,193,26,0.12); border-radius: 999px; padding: 6px 11px; }
+.fp-heros h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(40px, 12vw, 58px); line-height: 1.02; text-transform: uppercase; margin-top: 14px; overflow-wrap: anywhere; color: #fff; }
+.fp-ligne-rang { display: flex; align-items: flex-end; gap: 16px; margin-top: 14px; }
+.fp-rang { font-family: var(--f-display); font-size: 92px; line-height: 0.9; color: var(--brand); }
+.fp-rang small { font-size: 42px; vertical-align: top; margin-right: 3px; }
+.fp-ligne-rang .d b { display: block; font-size: 20px; font-weight: 900; }
+.fp-ligne-rang .d span { display: block; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); margin-top: 5px; }
+.fp-ligne-rang .d em { font-style: normal; font-weight: 800; }
+.fp-ligne-rang .d em.up { color: #4ADE80; }
+.fp-ligne-rang .d em.dn { color: #F87171; }
+.fp-puces { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 18px; }
+.fp-puces span { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.08); border-radius: 999px; padding: 6px 10px; }
+.fp-btn-carte { display: flex; justify-content: center; margin-top: 18px; background: var(--brand); color: #0A0A0A; border-radius: 14px; font-size: 15px; font-weight: 800; padding: 14px; text-decoration: none; }
+
+.fp-sommaire { position: sticky; top: 0; z-index: 5; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 12px 16px; background: var(--ink); border-bottom: 1px solid var(--line); }
+.fp-sommaire::-webkit-scrollbar { display: none; }
+.fp-sommaire a { flex: none; font-size: 13px; font-weight: 700; color: var(--text); text-decoration: none; border: 1.5px solid var(--line); background: var(--ink-card); border-radius: 999px; padding: 8px 13px; }
+
+.fp-sec { padding-top: 26px; scroll-margin-top: 64px; }
+.fp-etiq { font-size: 11px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: #C98F00; }
+.fp-sec h2 { font-size: 21px; font-weight: 800; letter-spacing: -0.2px; margin: 4px 0 0; }
+.fp-bloc { background: var(--ink-card); border: 1px solid var(--line); border-radius: 18px; margin-top: 12px; overflow: hidden; }
+.fp-vide { color: var(--text-mute); font-size: 13px; padding: 16px; }
+
+.fp-phrase { font-size: 17px; font-weight: 600; line-height: 1.5; padding: 18px 18px 4px; }
+.fp-phrase b { font-weight: 900; }
+.fp-trio { display: flex; padding: 14px 6px 16px; }
+.fp-trio div { flex: 1; text-align: center; border-left: 1px solid var(--line); }
+.fp-trio div:first-child { border-left: 0; }
+.fp-trio b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 34px; line-height: 1.1; }
+.fp-trio span { font-size: 11px; font-weight: 700; letter-spacing: 0.8px; color: var(--text-mute); }
+.fp-vd { display: flex; height: 8px; margin: 0 18px 18px; border-radius: 999px; overflow: hidden; }
+.fp-vd i { background: #16A34A; }
+.fp-vd i + i { background: #F3B3B3; }
+
+.fp-frise { padding: 6px 16px 10px; }
+.fp-mois { display: flex; gap: 12px; position: relative; padding: 12px 0; }
+.fp-mois:not(:last-child)::after { content: ""; position: absolute; left: 43px; top: 34px; bottom: -12px; width: 2px; background: var(--line); }
+.fp-m { width: 34px; flex: none; text-align: right; font-size: 12px; font-weight: 800; color: var(--text-mute); padding-top: 5px; line-height: 1.2; }
+.fp-m small { display: block; font-size: 10.5px; font-weight: 600; }
+.fp-pt { width: 20px; flex: none; display: flex; justify-content: center; padding-top: 4px; position: relative; z-index: 1; }
+.fp-pt i { width: 14px; height: 14px; border-radius: 50%; background: var(--brand); border: 3px solid var(--ink-card); box-shadow: 0 0 0 1.5px var(--brand); }
+.fp-mois.vide .fp-pt i { background: var(--ink-card); box-shadow: 0 0 0 1.5px var(--line); }
+.fp-tx { flex: 1; min-width: 0; }
+.fp-mois.vide .fp-tx { font-size: 13px; font-weight: 600; color: var(--text-faint); padding-top: 4px; }
+.fp-tn { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; padding: 3px 0; }
+.fp-tn .nm { font-size: 13.5px; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+.fp-tn .nm small { display: block; font-size: 11.5px; font-weight: 600; color: var(--text-mute); margin-top: 2px; }
+.fp-tn .p { font-size: 13.5px; font-weight: 800; white-space: nowrap; }
+.fp-tn.non .nm, .fp-tn.non .p { color: var(--text-faint); }
+.fp-titre { display: inline-block; font-size: 10px; font-weight: 900; letter-spacing: 0.8px; background: #0A0A0A; color: var(--brand); border-radius: 5px; padding: 3px 6px; margin-left: 6px; vertical-align: 1px; }
+.fp-legende { font-size: 12px; font-weight: 600; color: var(--text-mute); padding: 0 18px 16px; }
+
+.fp-part { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-top: 1px solid var(--line); }
+.fp-part:first-child { border-top: 0; }
+.fp-ini { width: 40px; height: 40px; border-radius: 50%; background: #0A0A0A; color: var(--brand); font-family: var(--f-display); font-size: 16px; display: flex; align-items: center; justify-content: center; flex: none; }
+.fp-part .c { flex: 1; min-width: 0; }
+.fp-part .c b { font-size: 14.5px; font-weight: 800; }
+.fp-part .c b a { color: var(--text); text-decoration: underline; text-decoration-color: var(--brand); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.fp-part .c span { display: block; font-size: 12px; font-weight: 600; color: var(--text-mute); margin-top: 3px; }
+.fp-jauge { height: 5px; background: var(--ink-alt); border-radius: 999px; margin-top: 7px; overflow: hidden; }
+.fp-jauge i { display: block; height: 100%; background: #16A34A; border-radius: 999px; }
+.fp-part .pc { font-family: var(--f-display); font-size: 22px; }
+
+.fp-match { display: flex; gap: 12px; padding: 13px 16px; border-top: 1px solid var(--line); }
+.fp-bloc > .fp-match:first-child { border-top: 0; }
+.fp-res { width: 30px; height: 30px; border-radius: 9px; flex: none; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; color: #fff; background: #16A34A; }
+.fp-res.d { background: #DC2626; }
+.fp-match .c { flex: 1; min-width: 0; }
+.fp-match .t { font-size: 11.5px; font-weight: 700; color: var(--text-mute); letter-spacing: 0.2px; overflow-wrap: anywhere; }
+.fp-match .o { font-size: 14px; font-weight: 700; line-height: 1.35; margin-top: 3px; }
+.fp-match .o small { font-weight: 600; color: var(--text-mute); }
+.fp-match .o a { color: var(--text); text-decoration: underline; text-decoration-color: var(--brand); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.fp-match .s { font-size: 13px; font-weight: 800; white-space: nowrap; padding-top: 16px; }
+.fp-suite summary { list-style: none; cursor: pointer; text-align: center; font-size: 14px; font-weight: 800; padding: 14px; border-top: 1px solid var(--line); }
+.fp-suite summary::-webkit-details-marker { display: none; }
+.fp-suite[open] summary { color: var(--text-mute); }
+#carte .frmt-carte { margin-top: 12px; }

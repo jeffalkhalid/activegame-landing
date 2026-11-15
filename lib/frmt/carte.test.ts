@@ -1,19 +1,20 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { tuilesCarte } from './carte';
+import { colonnesCarte } from './carte';
 
-test('carte : points + bilan côte à côte quand le joueur a joué sur 12 mois', () => {
-  assert.deepEqual(tuilesCarte({ gagnes: 31, perdus: 5 }), [
-    { type: 'points', x: 90, largeur: 430 },
-    { type: 'bilan', x: 560, largeur: 430 },
+test('carte : points, victoires et défaites sur une ligne quand le joueur a joué sur 12 mois', () => {
+  assert.deepEqual(colonnesCarte('25 080', { gagnes: 34, perdus: 7 }), [
+    { valeur: '25 080', libelle: 'POINTS', x: 92, align: 'left' },
+    { valeur: '34', libelle: 'VICTOIRES', x: 540, align: 'center' },
+    { valeur: '7', libelle: 'DÉFAITES', x: 988, align: 'right' },
   ]);
 });
 
-test('carte : ni victoire ni défaite → pas de tuile bilan, la tuile points est centrée', () => {
-  assert.deepEqual(tuilesCarte(null), [{ type: 'points', x: 325, largeur: 430 }]);
-  assert.deepEqual(tuilesCarte({ gagnes: 0, perdus: 0 }), [{ type: 'points', x: 325, largeur: 430 }]);
+test('carte : ni victoire ni défaite → les points seuls', () => {
+  assert.deepEqual(colonnesCarte('1 200', null), [{ valeur: '1 200', libelle: 'POINTS', x: 92, align: 'left' }]);
+  assert.deepEqual(colonnesCarte('1 200', { gagnes: 0, perdus: 0 }).length, 1);
 });
 
-test('carte : une seule défaite (aucune victoire) → la tuile bilan reste', () => {
-  assert.equal(tuilesCarte({ gagnes: 0, perdus: 1 }).length, 2);
+test('carte : une seule défaite (aucune victoire) → le bilan reste', () => {
+  assert.equal(colonnesCarte('800', { gagnes: 0, perdus: 1 }).length, 3);
 });
