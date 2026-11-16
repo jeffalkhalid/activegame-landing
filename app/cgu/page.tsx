@@ -15,6 +15,7 @@ export default function Cgu() {
         kicker="Règles du jeu"
         title="Conditions d’utilisation"
         sub="Les règles qui rendent l’expérience juste et agréable pour toute la communauté padel."
+        updated="11 novembre 2026"
       />
 
       <main className="container legal-body">
@@ -51,7 +52,8 @@ export default function Cgu() {
             <li>usurper l’identité d’un tiers ou tromper les autres joueurs ;</li>
             <li>fausser les scores, le classement ELO ou manipuler le système ;</li>
             <li>collecter les données d’autres utilisateurs sans leur consentement ;</li>
-            <li>perturber le service, contourner la sécurité ou en faire un usage automatisé non autorisé.</li>
+            <li>perturber le service, contourner la sécurité ou en faire un usage automatisé non autorisé ;</li>
+            <li>vous inscrire à une partie et ne pas vous y présenter sans prévenir les autres joueurs.</li>
           </ul>
         </Section>
 
@@ -108,9 +110,23 @@ export default function Cgu() {
         </Section>
 
         <Section n={10} icon="🚪" title="Suspension & résiliation">
+          <p>Vous pouvez supprimer votre compte à tout moment depuis les réglages.</p>
           <p>
-            Vous pouvez supprimer votre compte à tout moment depuis les réglages. Nous pouvons suspendre
-            ou résilier votre accès en cas de violation des présentes CGU.
+            En cas de manquement aux présentes conditions (absence répétée aux parties, comportement
+            abusif, fraude…), {LEGAL.brand} peut :
+          </p>
+          <ul>
+            <li>
+              <strong>suspendre</strong> votre compte, pour une durée déterminée ou définitivement : vous
+              gardez vos parties déjà prévues, mais ne pouvez plus en rejoindre ni en créer ;
+            </li>
+            <li>
+              <strong>supprimer</strong> votre compte.
+            </li>
+          </ul>
+          <p>
+            Le motif et la durée vous sont communiqués par notification. Pour toute question ou
+            contestation : {LEGAL.contactEmail}.
           </p>
         </Section>
 
