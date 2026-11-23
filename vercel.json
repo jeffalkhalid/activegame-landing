@@ -16,9 +16,62 @@
     {
       "source": "/t/:id",
       "destination": "/open/?p=tournament&tournament=:id"
+    },
+    {
+      "source": "/telecharger{/}?",
+      "has": [
+        { "type": "header", "key": "user-agent", "value": ".*(iPhone|iPad|iPod).*" },
+        { "type": "query", "key": "utm_campaign", "value": "(?<c>[A-Za-z0-9_.~-]{1,40})" }
+      ],
+      "missing": [
+        { "type": "header", "key": "user-agent", "value": ".*([Bb]ot[-/;) ]|[Bb]ot$|[Cc]rawler|[Ss]pider|facebookexternalhit|Mediapartners-Google|Google-InspectionTool|Lighthouse|HeadlessChrome).*" }
+      ],
+      "destination": "https://apps.apple.com/app/id6817251293?ct=:c",
+      "statusCode": 302
+    },
+    {
+      "source": "/telecharger{/}?",
+      "has": [
+        { "type": "header", "key": "user-agent", "value": ".*(iPhone|iPad|iPod).*" }
+      ],
+      "missing": [
+        { "type": "header", "key": "user-agent", "value": ".*([Bb]ot[-/;) ]|[Bb]ot$|[Cc]rawler|[Ss]pider|facebookexternalhit|Mediapartners-Google|Google-InspectionTool|Lighthouse|HeadlessChrome).*" }
+      ],
+      "destination": "https://apps.apple.com/app/id6817251293",
+      "statusCode": 302
+    },
+    {
+      "source": "/telecharger{/}?",
+      "has": [
+        { "type": "header", "key": "user-agent", "value": ".*Android.*" },
+        { "type": "query", "key": "utm_campaign", "value": "(?<c>[A-Za-z0-9_.~-]{1,40})" }
+      ],
+      "missing": [
+        { "type": "header", "key": "user-agent", "value": ".*([Bb]ot[-/;) ]|[Bb]ot$|[Cc]rawler|[Ss]pider|facebookexternalhit|Mediapartners-Google|Google-InspectionTool|Lighthouse|HeadlessChrome).*" }
+      ],
+      "destination": "https://play.google.com/store/apps/details?id=com.pagmatch.app&referrer=utm_source%3Dgoogle%26utm_medium%3Ddemandgen%26utm_campaign%3D:c",
+      "statusCode": 302
+    },
+    {
+      "source": "/telecharger{/}?",
+      "has": [
+        { "type": "header", "key": "user-agent", "value": ".*Android.*" }
+      ],
+      "missing": [
+        { "type": "header", "key": "user-agent", "value": ".*([Bb]ot[-/;) ]|[Bb]ot$|[Cc]rawler|[Ss]pider|facebookexternalhit|Mediapartners-Google|Google-InspectionTool|Lighthouse|HeadlessChrome).*" }
+      ],
+      "destination": "https://play.google.com/store/apps/details?id=com.pagmatch.app&referrer=utm_source%3Dgoogle%26utm_medium%3Ddemandgen",
+      "statusCode": 302
     }
   ],
   "headers": [
+    {
+      "source": "/telecharger{/}?",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "Vary", "value": "User-Agent" }
+      ]
+    },
     {
       "source": "/.well-known/apple-app-site-association",
       "headers": [

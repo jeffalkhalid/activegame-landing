@@ -1121,3 +1121,17 @@ html:has(.fp-heros) { scroll-behavior: smooth; }
 .fp-suite summary::-webkit-details-marker { display: none; }
 .fp-suite[open] summary { color: var(--text-mute); }
 #carte .frmt-carte { margin-top: 12px; }
+
+/* ============================================================
+   /telecharger — page de repli des publicités (ordinateur, robots).
+   Fond noir du site ; QR code seulement sur un écran avec souris.
+   ============================================================ */
+.tel { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 18px; padding: 40px 20px; background: var(--ink); }
+.tel-logo { margin-bottom: 14px; }
+.tel-titre { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(34px, 9vw, 58px); line-height: 1; letter-spacing: 0.01em; }
+.tel-titre span { color: var(--brand); }
+.tel-sous { color: var(--text-dim); font-size: 17px; margin-bottom: 10px; }
+.tel-qr { display: none; margin-top: 22px; }
+.tel-qr img { display: block; width: 176px; height: 176px; margin: 0 auto; padding: 10px; background: #FFFFFF; border-radius: 16px; }
+.tel-qr p { margin-top: 10px; color: var(--text-mute); font-size: 14px; }
+@media (hover: hover) and (pointer: fine) { .tel-qr { display: block; } }

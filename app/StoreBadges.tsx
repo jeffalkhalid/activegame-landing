@@ -32,11 +32,12 @@ function StoreBadge({ href, store }: { href: string; store: keyof typeof BADGES 
   );
 }
 
-export default function StoreBadges({ center = false }: { center?: boolean }) {
+// `liens` : d'autres adresses de store (ex. /telecharger et son suivi pub).
+export default function StoreBadges({ center = false, liens }: { center?: boolean; liens?: { apple: string; google: string } }) {
   return (
     <div className={`stores${center ? ' center' : ''}`}>
-      <StoreBadge href={LEGAL.appStoreUrl} store="apple" />
-      <StoreBadge href={LEGAL.playStoreUrl} store="google" />
+      <StoreBadge href={liens?.apple ?? LEGAL.appStoreUrl} store="apple" />
+      <StoreBadge href={liens?.google ?? LEGAL.playStoreUrl} store="google" />
     </div>
   );
 }
