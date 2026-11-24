@@ -7,6 +7,9 @@
     },
     {
       "source": "/g/:id",
+      "missing": [
+        { "type": "header", "key": "user-agent", "value": ".*(WhatsApp|facebookexternalhit|Facebot|Twitterbot|TelegramBot|Slackbot|Discordbot|LinkedInBot|SkypeUriPreview|Applebot|Pinterest|redditbot|vkShare|Embedly|Iframely|Googlebot|bingbot|PagmatchPrechauffe).*" }
+      ],
       "destination": "/open/?p=game&game=:id"
     },
     {
@@ -62,6 +65,15 @@
       ],
       "destination": "https://play.google.com/store/apps/details?id=com.pagmatch.app&referrer=utm_source%3Dgoogle%26utm_medium%3Ddemandgen",
       "statusCode": 302
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/g/:id",
+      "has": [
+        { "type": "header", "key": "user-agent", "value": ".*(WhatsApp|facebookexternalhit|Facebot|Twitterbot|TelegramBot|Slackbot|Discordbot|LinkedInBot|SkypeUriPreview|Applebot|Pinterest|redditbot|vkShare|Embedly|Iframely|Googlebot|bingbot|PagmatchPrechauffe).*" }
+      ],
+      "destination": "https://pagmatch-clubs.vercel.app/partie/:id"
     }
   ],
   "headers": [
