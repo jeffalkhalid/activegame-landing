@@ -69,7 +69,7 @@
   ],
   "rewrites": [
     {
-      "source": "/g/:id",
+      "source": "/g/:id{/}?",
       "has": [
         { "type": "header", "key": "user-agent", "value": ".*(WhatsApp|facebookexternalhit|Facebot|Twitterbot|TelegramBot|Slackbot|Discordbot|LinkedInBot|SkypeUriPreview|Applebot|Pinterest|redditbot|vkShare|Embedly|Iframely|Googlebot|bingbot|PagmatchPrechauffe).*" }
       ],
